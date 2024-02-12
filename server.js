@@ -1,43 +1,42 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
+require('dotenv').config()
+const express = require('express')
+const mongoose = require('mongoose')
 
-const app = express();
-
-var corsOptions = {
-  origin: "http://localhost:8081"
-};
-
-app.use(cors(corsOptions));
-
-// parse requests of content-type - application/json
-app.use(bodyParser.json());
-
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
-
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to caresync application." });
-});
-
-// set port, listen for requests
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
-});
+// const Routes = require('./routes/workoutsRoutes')
 
 
-const db = require("./app/models");
-db.mongoose
-  .connect(db.url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+// express app
+const app = express()
+
+
+// middleware
+
+app.use(express.json())
+
+app.use((req, res, next) => {
+  console.log(req.path, req.method)
+  next()
+})
+
+
+
+// routes
+
+// app.use('/api/workouts',workoutRoutes)
+
+
+//connect to db
+mongoose.connect(process.env.MONGO_URI)
+  .then(()=>{
+
+    // listen for requests
+    app.listen(process.env.PORT, () => {
+      console.log('Connected to db. Listening on port', process.env.PORT)
+    })
+  }) 
+  .catch( (error)=>{
+    console.log(error)
   })
-  .then(() => {
-    console.log("Connected to the database!");
-  })
-  .catch(err => {
-    console.log("Cannot connect to the database!", err);
-    process.exit();
-  });
+
+
+
