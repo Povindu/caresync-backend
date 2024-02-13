@@ -8,6 +8,8 @@ const authRoutes = require('./routes/authRoutes');
 const requireAuth = require("./middleware/requireAuth")
 // require('./models/UserNew');
 // const trackRoutes = require('./routes/trackRoutes');
+const BreathingTestRoutes = require('./routes/breathingTestRoutes')
+
 
 
 // express app
@@ -31,6 +33,9 @@ app.use(authRoutes);
 app.get('/', requireAuth, (req, res) => {
   res.send(`your email : ${req.user.email}`);
 });
+
+
+app.use('/api/breathingTests', BreathingTestRoutes)
 
 
 
