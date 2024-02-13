@@ -14,8 +14,7 @@ app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 app.use(authRoutes);
 app.use(trackRoutes);
 
-const mongoUri = "mongodb+srv://manushadananjaya999:manusha123@cluster0.dpyghhm.mongodb.net/your_database_name?retryWrites=true&w=majority"; // Replace 'your_database_name' with your actual database name
-mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.on('connected', () => {
     console.log('Connected to MongoDB');
 });
