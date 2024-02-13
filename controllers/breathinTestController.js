@@ -20,8 +20,13 @@ const createBreathingTestResult = async(req, res)=>{
 }
 
 //delete results
+const deletebreathingTestResults = async(req, res)=>{
+    const deleteResults = await breathingTest.deleteMany({})
+    res.status(200).json(deleteResults)
+}
 
 module.exports ={
     getbreathingTestResult,
-    createBreathingTestResult
+    createBreathingTestResult,
+    deletebreathingTestResults
 }

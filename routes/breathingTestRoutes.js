@@ -1,7 +1,8 @@
 const express = require('express')
 const {
     getbreathingTestResult,
-    createBreathingTestResult
+    createBreathingTestResult,
+    deletebreathingTestResults
 }=require('../controllers/breathinTestController')
 
 const router = express.Router()
@@ -13,8 +14,6 @@ router.get('/', getbreathingTestResult)
 router.post('/', createBreathingTestResult)
 
 //delete results
-router.delete('/', (req, res)=>{
-    res.json({mssg: 'delete results'})
-})
+router.delete('/', deletebreathingTestResults)
 
 module.exports = router
