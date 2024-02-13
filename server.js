@@ -4,6 +4,10 @@ const mongoose = require('mongoose')
 
 
 const DoctorRoutes = require('./routes/DoctorRoutes')
+const authRoutes = require('./routes/authRoutes');
+const requireAuth = require("./middleware/requireAuth")
+// require('./models/UserNew');
+// const trackRoutes = require('./routes/trackRoutes');
 
 
 // express app
@@ -11,6 +15,7 @@ const app = express()
 
 // middleware
 app.use(express.json())
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
 app.use((req, res, next) => {
   console.log(req.path, req.method)
@@ -21,6 +26,11 @@ app.use((req, res, next) => {
 
 // routes
 app.use('/api/doctors', DoctorRoutes)
+app.use(authRoutes);
+
+app.get('/', requireAuth, (req, res) => {
+  res.send(`your email : ${req.user.email}`);
+});
 
 
 
@@ -37,6 +47,5 @@ mongoose.connect(process.env.MONGO_URI)
   .catch( (error)=>{
     console.log(error)
   })
-
 
 
