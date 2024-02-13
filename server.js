@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 
 
 const DoctorRoutes = require('./routes/DoctorRoutes')
+const BreathingTestRoutes = require('./routes/breathingTestRoutes')
 
 
 // express app
@@ -21,7 +22,7 @@ app.use((req, res, next) => {
 
 // routes
 app.use('/api/doctors', DoctorRoutes)
-
+app.use('/api/breathingTests', BreathingTestRoutes)
 
 
 
