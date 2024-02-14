@@ -21,7 +21,7 @@ const createStepCountResult = async(req,res)=>{
 
 //delete results
 const deleteStepCounterTestResult = async(req, res)=>{
-    const deleteResult = await stepCount.find({}).sort({createdAt: -1})
+    const deleteResult = await stepCount.deleteMany({})
     res.status(200).json(deleteResult)
 }
 
