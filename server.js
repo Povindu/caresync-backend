@@ -9,6 +9,7 @@ const requireAuth = require("./middleware/requireAuth")
 // require('./models/UserNew');
 // const trackRoutes = require('./routes/trackRoutes');
 const BreathingTestRoutes = require('./routes/breathingTestRoutes')
+const StepCounterTestRoutes = require('./routes/stepCountTestRoutes')
 
 
 
@@ -36,8 +37,7 @@ app.get('/', requireAuth, (req, res) => {
 
 
 app.use('/api/breathingTests', BreathingTestRoutes)
-
-
+app.use('/api/stepCounterTests', StepCounterTestRoutes)
 
 
 //connect to db
