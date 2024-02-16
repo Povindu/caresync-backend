@@ -10,7 +10,7 @@ const uri = 'mongodb+srv://povinduchanmith:pass456789@cluster0.z3tqxz6.mongodb.n
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:3007"
+  origin: "http://localhost:3008"
 };
 
 app.use(cors(corsOptions));
