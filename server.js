@@ -3,7 +3,7 @@ const mongoose= require('mongoose')
 const bodyParser = require("body-parser");
 const cors = require("cors");
 require('dotenv').config()
-const PatientRoutes = require('./routes/Patients')
+const PatientRoutes = require('./ViewPatientsSummary/routes/Patients')
 const uri = 'mongodb+srv://povinduchanmith:pass456789@cluster0.z3tqxz6.mongodb.net/?retryWrites=true&w=majority'
 
 

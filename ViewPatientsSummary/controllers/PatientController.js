@@ -1,4 +1,4 @@
-const Patient= require('../models/PatientsModel')
+const Patient= require('../../models/PatientsModel')
 const mongoose= require('mongoose')
 
 //get all Patients
