@@ -2,6 +2,7 @@
 
 // Import required modules
 require("./models/UserNew");
+require("./models/DoctorUser");
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -46,7 +47,7 @@ app.get("/", requireAuth, (req, res) => {
 });
 
 // Start the Express server
-const PORT = process.env.PORT || 3002; // Use the environment port or default to 3000
+const PORT = process.env.PORT || 3003; // Use the environment port or default to 3000
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
