@@ -2,12 +2,14 @@ const mongoose = require("mongoose");
 const DocModel = require('../models/doctor');
 
 
+
 //Get all doctors
 const getDoctors = async (req, res) => {
   const doctors = await DocModel.find({}).sort({ createdAt: -1 });
 
   res.status(200).json(doctors);
 };
+
 
 
 //Get a single doctor by ID
@@ -26,6 +28,8 @@ const getDoctor = async (req, res) => {
     res.status(200).json(doc);
   };
   
+
+
 // Create new doctor
 const createDoctor= async (req, res) => {
   const { name, doctorID, spec } = req.body;
@@ -41,7 +45,6 @@ const createDoctor= async (req, res) => {
 
 
 // delete a doctor
-
 const deleteDoctor = async (req, res) => {
   const { id } = req.params;
 
@@ -57,8 +60,9 @@ const deleteDoctor = async (req, res) => {
   res.status(200).json(doctor);
 };
 
-// update a doctor
 
+
+// update a doctor
 const updateDoctor = async (req, res) => {
   const { id } = req.params;
 
@@ -79,7 +83,38 @@ const updateDoctor = async (req, res) => {
   res.status(200).json(doctor);
 };
 
+// update a doctor
+const addPatientAccess = async (req, res) => {
+  const { id } = req.params;
 
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "No such doctor" });
+  }
+
+  // if (!mongoose.Types.ObjectId.isValid(req.body.patientID)) {
+  //   return res.status(404).json({ error: "No such doctor" });
+  // }
+
+
+  console.log(req.body.patientID)
+
+  const doctor = await DocModel.findOneAndUpdate(
+    { _id: id },
+    {
+     $addToSet: { accessPatients : req.body.patientID }
+    }
+  );
+
+  /*
+   The $addToSet operator adds a value to an array unless the value is already present, 
+   in which case $addToSet does nothing to that array.
+  */
+
+  if (!doctor) {
+    return res.status(400).json({ error: "No such doctor" });
+  }
+  res.status(200).json(doctor);
+};
 
 
 module.exports = {
@@ -87,5 +122,6 @@ module.exports = {
     getDoctor,
     createDoctor,
     deleteDoctor,
-    updateDoctor
+    updateDoctor,
+    addPatientAccess
 };

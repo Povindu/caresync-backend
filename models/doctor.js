@@ -12,12 +12,16 @@ const DoctorSchema = new Schema(
       type: Number,
       required: true,
     },
-
     //Specialization
     spec: {
       type: String,
       required: true,
+    },
+    accessPatients:{
+      type: Array,
     }
+
+
   },
   { timestamps: true }
 );

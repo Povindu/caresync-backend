@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
-
+var cors = require('cors');
 
 const DoctorRoutes = require('./routes/DoctorRoutes')
 const authRoutes = require('./routes/authRoutes');
@@ -16,8 +16,12 @@ const BreathingTestRoutes = require('./routes/breathingTestRoutes')
 const app = express()
 
 // middleware
+
+app.use(cors());
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+
 
 app.use((req, res, next) => {
   console.log(req.path, req.method)
@@ -28,6 +32,7 @@ app.use((req, res, next) => {
 
 // routes
 app.use('/api/doctors', DoctorRoutes)
+app.use('/api/breathingTests', BreathingTestRoutes)
 app.use(authRoutes);
 
 app.get('/', requireAuth, (req, res) => {
@@ -36,6 +41,7 @@ app.get('/', requireAuth, (req, res) => {
 
 
 app.use('/api/breathingTests', BreathingTestRoutes)
+
 
 
 
