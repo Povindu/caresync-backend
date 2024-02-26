@@ -8,11 +8,11 @@ const getStepCounterTestResult = async(req, res)=>{
 
 //post result
 const createStepCountResult = async(req,res)=>{
-    const {date, stopwatchTime, step} = req.body
+    const {date, stopwatchTime, step, distance} = req.body
 
     //add doc to db
     try{
-        const stepCounter = await stepCount.create({date,stopwatchTime,step})
+        const stepCounter = await stepCount.create({date,stopwatchTime,step,distance})
         res.status(200).json(stepCounter)
     }catch(error){
         res.status(400).json({error: error.message})

@@ -14,6 +14,10 @@ const stepCountSchema = new Schema({
     step:{
         type:Number,
         required:true
+    },
+    distance:{
+        type:Number,
+        required:true
     }
 },{timestamps:true})
 
