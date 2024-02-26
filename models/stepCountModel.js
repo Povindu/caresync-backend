@@ -11,7 +11,7 @@ const stepCountSchema = new Schema({
         type: String,
         required:true
     },
-    step:{
+    steps:{
         type:Number,
         required:true
     },
