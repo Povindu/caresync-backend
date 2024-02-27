@@ -7,19 +7,22 @@ const PatientRoutes = require('./ViewPatientsSummary/routes/Patients')
 const uri = 'mongodb+srv://povinduchanmith:pass456789@cluster0.z3tqxz6.mongodb.net/?retryWrites=true&w=majority'
 
 
-const app = express();
 
 var corsOptions = {
   origin: "http://localhost:4000"
 };
+const DoctorRoutes = require('./routes/DoctorRoutes')
+const authRoutes = require('./routes/authRoutes');
+const requireAuth = require("./middleware/requireAuth")
+// require('./models/UserNew');
+// const trackRoutes = require('./routes/trackRoutes');
+const BreathingTestRoutes = require('./routes/breathingTestRoutes')
+const StepCounterTestRoutes = require('./routes/stepCountTestRoutes')
 
-app.use(cors(corsOptions));
 
-// parse requests of content-type - application/json
-app.use(bodyParser.json());
 
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
+// express app
+const app = express()
 
 // simple route
 // app.get("/patients", PatientRoutes, (req, res) => {
@@ -67,4 +70,41 @@ db.mongoose
     console.log("Cannot connect to the database!", err);
     process.exit();
   });
+// middleware
+app.use(express.json())
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+
+app.use((req, res, next) => {
+  console.log(req.path, req.method)
+  next()
+})
+
+
+
+// routes
+app.use('/api/doctors', DoctorRoutes)
+app.use(authRoutes);
+
+app.get('/', requireAuth, (req, res) => {
+  res.send(`your email : ${req.user.email}`);
+});
+
+
+app.use('/api/breathingTests', BreathingTestRoutes)
+app.use('/api/stepCounterTests', StepCounterTestRoutes)
+
+
+//connect to db
+mongoose.connect(process.env.MONGO_URI)
+  .then(()=>{
+
+    // listen for requests
+    app.listen(process.env.PORT, () => {
+      console.log('Connected to db. Listening on port', process.env.PORT)
+    })
+  }) 
+  .catch( (error)=>{
+    console.log(error)
+  })
+
 
