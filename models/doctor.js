@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+
 const doctorSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -25,6 +26,10 @@ const doctorSchema = new mongoose.Schema({
   medicalId: {
     type: String,
     required: true,
+  },
+  medicalIdVerify: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -67,4 +72,4 @@ doctorSchema.methods.comparePassword = function (candidatePassword) {
   });
 };
 
-mongoose.model('Doctor', doctorSchema);
+mongoose.model("Doctor", doctorSchema);

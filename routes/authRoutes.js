@@ -46,10 +46,26 @@ router.post("/signin", async (req, res) => {
 
 // Doctor Sign-up
 router.post("/doctors/signup", async (req, res) => {
-  const { firstName, lastName, nic, email, password, medicalId } = req.body;
+  const {
+    firstName,
+    lastName,
+    nic,
+    email,
+    password,
+    medicalId,
+    medicalIdVerify,
+  } = req.body;
 
   try {
-    const doctor = new Doctor({ firstName, lastName, nic, email, password, medicalId });
+    const doctor = new Doctor({
+      firstName,
+      lastName,
+      nic,
+      email,
+      password,
+      medicalId,
+      medicalIdVerify,
+    });
     await doctor.save();
 
     const token = jwt.sign({ userId: doctor._id }, "MY_SECRET_KEY");
@@ -75,7 +91,7 @@ router.post("/doctors/signin", async (req, res) => {
   try {
     await doctor.comparePassword(password);
     const token = jwt.sign({ userId: doctor._id }, "MY_SECRET_KEY");
-    res.send({ token });
+    res.send({ token, medicalIdVerify: doctor.medicalIdVerify });
   } catch (err) {
     return res.status(422).send({ error: "Invalid email or password" });
   }
