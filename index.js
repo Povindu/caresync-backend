@@ -18,24 +18,11 @@ app.use(bodyParser.json());
 // Mount authentication routes
 app.use(authRoutes);
 
-// Mount track routes
 
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connection.on('connected', () => {
+    console.log('Connected to MongoDB');
 
-// MongoDB connection URI
-const mongoUri = "mongodb+srv://manushadananjaya999:manusha123@cluster0.dpyghhm.mongodb.net/your_database_name?retryWrites=true&w=majority";
-
-// Check if MongoDB URI is provided
-if (!mongoUri) {
-  throw new Error(
-    `MongoURI was not supplied. Make sure you watch the video on setting up MongoDB!`
-  );
-}
-
-// Connect to MongoDB
-mongoose.set("strictQuery", true); // resolves future deprecation issue with Mongoose v7
-mongoose.connect(mongoUri);
-mongoose.connection.on("connected", () => {
-  console.log("Connected to MongoDB instance");
 });
 mongoose.connection.on("error", (err) => {
   console.error("Error connecting to MongoDB", err);
