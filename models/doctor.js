@@ -72,4 +72,4 @@ doctorSchema.methods.comparePassword = function (candidatePassword) {
   });
 };
 
-mongoose.model("Doctor", doctorSchema);
+module.exports = mongoose.model("Doctor", doctorSchema);

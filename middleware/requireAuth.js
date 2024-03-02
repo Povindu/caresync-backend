@@ -1,7 +1,13 @@
-const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
-const User = mongoose.model('User');
-const Doctor = mongoose.model('Doctor');
+const jwt = require('jsonwebtoken');
+
+// require("./models/Patient");
+// require("./models/doctor");
+
+
+
+const User = mongoose.model("User");
+const Doctor = mongoose.model("Doctor");
 
 module.exports = async (req, res, next) => {
   const { authorization } = req.headers;

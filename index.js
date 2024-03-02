@@ -1,13 +1,20 @@
 // app.js
 
 // Import required modules
-require("./models/Patient");
-require("./models/Doctor");
+
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+
+require("./models/Patient");
+require("./models/doctor");
+
+
+
 const authRoutes = require("./routes/authRoutes");
 const requireAuth = require("./middleware/requireAuth");
+
+
 
 // Create an Express application
 const app = express();
