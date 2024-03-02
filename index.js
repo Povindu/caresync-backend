@@ -1,32 +1,40 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const authRoutes = require('./routes/authRoutes');
-const trackRoutes = require('./routes/trackRoutes');
+// app.js
 
-const requireAuth = require("./middleware/requireAuth")
-require('./models/UserNew');
+// Import required modules
+require("./models/Patient");
+require("./models/Doctor");
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const authRoutes = require("./routes/authRoutes");
+const requireAuth = require("./middleware/requireAuth");
 
-
+// Create an Express application
 const app = express();
 
-app.use(express.json()); // Parse JSON bodies
-app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+// Middleware to parse JSON bodies
+app.use(bodyParser.json());
+
+// Mount authentication routes
 app.use(authRoutes);
-app.use(trackRoutes);
+
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.on('connected', () => {
     console.log('Connected to MongoDB');
+
 });
-mongoose.connection.on('error', (err) => {
-    console.error('Error connecting to MongoDB', err);
+mongoose.connection.on("error", (err) => {
+  console.error("Error connecting to MongoDB", err);
 });
 
-app.get('/',requireAuth, (req, res) => {
-    res.send(`your email : ${req.user.email}`);
+// Example route that requires authentication
+app.get("/", requireAuth, (req, res) => {
+  res.send(`Your email: ${req.user.email}`);
 });
 
-const PORT = process.env.PORT || 3004;
+// Start the Express server
+const PORT = process.env.PORT || 3004; // Use the environment port or default to 3000
 app.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
