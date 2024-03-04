@@ -10,9 +10,10 @@ require("./models/doctor");
 require("./models/Patient");
 
 
-var corsOptions = {
-  origin: "http://localhost:4000",
-};
+// var corsOptions = {
+//   origin: "http://localhost:4000",
+// };
+
 const DoctorRoutes = require("./routes/DoctorRoutes");
 const authRoutes = require("./routes/authRoutes");
 const requireAuth = require("./middleware/requireAuth");
@@ -22,11 +23,14 @@ const BreathingTestRoutes = require("./routes/breathingTestRoutes");
 const StepCounterTestRoutes = require("./routes/stepCountTestRoutes");
 const PatientRoutes = require("./routes/Patients");
 
+
+
+
 // express app
 const app = express();
 
 // set port, listen for requests
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
@@ -34,6 +38,7 @@ app.listen(PORT, () => {
 // middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors())
 
 app.use((req, res, next) => {
   console.log(req.path, req.method);
@@ -41,16 +46,25 @@ app.use((req, res, next) => {
 });
 
 // routes
-app.use("/api/doctors", DoctorRoutes);
 app.use(authRoutes);
-
-app.get("/", requireAuth, (req, res) => {
-  res.send(`your email : ${req.user.email}`);
-});
-
+app.use("/api/doctors", DoctorRoutes);
 app.use("/api/breathingTests", BreathingTestRoutes);
 app.use("/api/stepCounterTests", StepCounterTestRoutes);
 app.use("/patients", PatientRoutes);
+
+app.get("/AuthTest", requireAuth, (req, res) => {
+  res.send(`your email : ${req.user.email}`);
+});
+
+app.get("/", (req, res) => {
+  res.send({"msg":"CareSync Test Endpoint v1" });
+});
+
+
+
+
+
+
 
 //connect to db
 mongoose

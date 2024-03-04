@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
-// require("./models/Patient");
-// require("./models/doctor");
-
-
 
 const User = mongoose.model("User");
 const Doctor = mongoose.model("Doctor");
