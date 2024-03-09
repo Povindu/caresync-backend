@@ -4,11 +4,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 require("dotenv").config();
 
-
-
 require("./models/doctor");
 require("./models/Patient");
-
 
 // var corsOptions = {
 //   origin: "http://localhost:4000",
@@ -22,9 +19,7 @@ const requireAuth = require("./middleware/requireAuth");
 const BreathingTestRoutes = require("./routes/breathingTestRoutes");
 const StepCounterTestRoutes = require("./routes/stepCountTestRoutes");
 const PatientRoutes = require("./routes/Patients");
-
-
-
+const PatientHistoryRoutes = require("./routes/patientHistoryRoutes");
 
 // express app
 const app = express();
@@ -38,7 +33,7 @@ app.listen(PORT, () => {
 // middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors())
+app.use(cors());
 
 app.use((req, res, next) => {
   console.log(req.path, req.method);
@@ -51,20 +46,15 @@ app.use("/api/doctors", DoctorRoutes);
 app.use("/api/breathingTests", BreathingTestRoutes);
 app.use("/api/stepCounterTests", StepCounterTestRoutes);
 app.use("/patients", PatientRoutes);
+app.use("/patientsHistory", PatientHistoryRoutes);
 
 app.get("/AuthTest", requireAuth, (req, res) => {
   res.send(`your email : ${req.user.email}`);
 });
 
 app.get("/", (req, res) => {
-  res.send({"msg":"CareSync Test Endpoint v1" });
+  res.send({ msg: "CareSync Test Endpoint v1" });
 });
-
-
-
-
-
-
 
 //connect to db
 mongoose
