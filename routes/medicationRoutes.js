@@ -42,60 +42,61 @@ router.post("/add", async (req, res) => {
 });
 router.delete("/delete", async (req, res) => {
   try {
-    const { patientId, selectedDate, medicalDetails, doctor } = req.body;
-    const formatDate = (selectedDate) => {
-      if (!selectedDate) {
-        return "Invalid Date";
-      }
+    const { selectedDate, medicalDetails } = req.body;
+    console.log(selectedDate, medicalDetails);
+    // const formatDate = (selectedDate) => {
+    //   if (!selectedDate) {
+    //     return "Invalid Date";
+    //   }
 
-      const date = new Date(selectedDate);
+    //   const date = new Date(selectedDate);
 
-      const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-      const months = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ];
+    //   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    //   const months = [
+    //     "Jan",
+    //     "Feb",
+    //     "Mar",
+    //     "Apr",
+    //     "May",
+    //     "Jun",
+    //     "Jul",
+    //     "Aug",
+    //     "Sep",
+    //     "Oct",
+    //     "Nov",
+    //     "Dec",
+    //   ];
 
-      const day = days[date.getDay()];
-      const month = months[date.getMonth()];
-      const dayOfMonth = date.getDate();
-      const year = date.getFullYear();
-      const hours = ("0" + date.getHours()).slice(-2);
-      const minutes = ("0" + date.getMinutes()).slice(-2);
-      const seconds = ("0" + date.getSeconds()).slice(-2);
-      const timeZone = date.toString().match(/\(([^)]+)\)$/)[1];
+    //   const day = days[date.getDay()];
+    //   const month = months[date.getMonth()];
+    //   const dayOfMonth = date.getDate();
+    //   const year = date.getFullYear();
+    //   const hours = ("0" + date.getHours()).slice(-2);
+    //   const minutes = ("0" + date.getMinutes()).slice(-2);
+    //   const seconds = ("0" + date.getSeconds()).slice(-2);
+    //   const timeZone = date.toString().match(/\(([^)]+)\)$/)[1];
 
-      return `${day} ${month} ${dayOfMonth} ${year} ${hours}:${minutes}:${seconds} GMT${
-        date.getTimezoneOffset() > 0 ? "-" : "+"
-      }${Math.abs(date.getTimezoneOffset() / 60)
-        .toString()
-        .padStart(2, "0")}${Math.abs(date.getTimezoneOffset() % 60)
-        .toString()
-        .padStart(2, "0")} (${timeZone})`;
-    };
+    //   return `${day} ${month} ${dayOfMonth} ${year} ${hours}:${minutes}:${seconds} GMT${
+    //     date.getTimezoneOffset() > 0 ? "-" : "+"
+    //   }${Math.abs(date.getTimezoneOffset() / 60)
+    //     .toString()
+    //     .padStart(2, "0")}${Math.abs(date.getTimezoneOffset() % 60)
+    //     .toString()
+    //     .padStart(2, "0")} (${timeZone})`;
+    // };
 
-    const formattedDate = formatDate(selectedDate);
-    console.log(formattedDate);
+    // const formattedDate = formatDate(selectedDate);
+    // console.log(formattedDate);
 
-    console.log("Request parameters:", req.body); // Log received parameters
+    // console.log("Request parameters:", req.body); // Log received parameters
 
     // Find the medication by patientId, selectedDate, and medicalDetails
     const medication = await Medications.findOneAndDelete({
-      patientId,
-      formattedDate,
+      selectedDate,
       medicalDetails,
-      doctor,
     });
+
+    console.log(medication);
 
     if (!medication) {
       return res.status(404).json({ message: "Medication not found" });

@@ -10,15 +10,12 @@ const MedicationSchema = new Schema(
     },
     selectedDate: {
       type: String,
-      required: true,
     },
     medicalDetails: {
       type: String,
-      required: true,
     },
     doctor: {
       type: String,
-      required: true,
     },
   },
   { timestamps: true }
