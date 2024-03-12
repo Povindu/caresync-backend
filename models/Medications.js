@@ -17,6 +17,13 @@ const MedicationSchema = new Schema(
     doctor: {
       type: String,
     },
+    doctorId: {
+      type: Schema.Types.ObjectId,
+      ref: "Doctor",
+    },
+    medicationId: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
