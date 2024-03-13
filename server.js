@@ -50,7 +50,7 @@ app.use(authRoutes);
 app.use("/api/doctors", DoctorRoutes);
 app.use("/api/breathingTests", BreathingTestRoutes);
 app.use("/api/stepCounterTests", StepCounterTestRoutes);
-app.use("/patients", PatientRoutes);
+app.use("/api/patients", PatientRoutes);
 
 app.get("/AuthTest", requireAuth, (req, res) => {
   res.send(`your email : ${req.user.email}`);
