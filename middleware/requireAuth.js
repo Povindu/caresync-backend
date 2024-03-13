@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
 
-const User = mongoose.model("User");
+const PatientData = mongoose.model("PatientData");
 const Doctor = mongoose.model("Doctor");
 
 module.exports = async (req, res, next) => {
@@ -22,7 +22,7 @@ module.exports = async (req, res, next) => {
 
     try {
       // Try to find user or doctor with the given ID
-      let user = await User.findById(userId);
+      let user = await PatientData.findById(userId);
       if (!user) {
         user = await Doctor.findById(userId);
         if (!user) {
