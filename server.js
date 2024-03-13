@@ -19,6 +19,10 @@ const requireAuth = require("./middleware/requireAuth");
 const BreathingTestRoutes = require("./routes/breathingTestRoutes");
 const StepCounterTestRoutes = require("./routes/stepCountTestRoutes");
 const PatientRoutes = require("./routes/Patients");
+
+
+const MedicationRoutes = require("./routes/medicationRoutes");
+=======
 const PatientHistoryRoutes = require("./routes/patientHistoryRoutes");
 
 // express app
@@ -47,6 +51,8 @@ app.use("/api/breathingTests", BreathingTestRoutes);
 app.use("/api/stepCounterTests", StepCounterTestRoutes);
 app.use("/patients", PatientRoutes);
 app.use("/patientsHistory", PatientHistoryRoutes);
+
+app.use("/medications", MedicationRoutes);
 
 app.get("/AuthTest", requireAuth, (req, res) => {
   res.send(`your email : ${req.user.email}`);
