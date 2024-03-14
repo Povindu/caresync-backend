@@ -11,18 +11,7 @@ require("./models/Patient");
 //   origin: "http://localhost:4000",
 // };
 
-const DoctorRoutes = require("./routes/DoctorRoutes");
-const authRoutes = require("./routes/authRoutes");
-const requireAuth = require("./middleware/requireAuth");
-// require('./models/UserNew');
-// const trackRoutes = require('./routes/trackRoutes');
-const BreathingTestRoutes = require("./routes/breathingTestRoutes");
-const StepCounterTestRoutes = require("./routes/stepCountTestRoutes");
-const PatientRoutes = require("./routes/Patients");
-
-
-const MedicationRoutes = require("./routes/medicationRoutes");
-const PatientHistoryRoutes = require("./routes/patientHistoryRoutes");
+// const requireAuth = require("./middleware/requireAuth");
 
 // express app
 const app = express();
@@ -43,23 +32,15 @@ app.use((req, res, next) => {
   next();
 });
 
+
+
+
 // routes
-app.use(authRoutes);
-app.use("/api/doctors", DoctorRoutes);
-app.use("/api/breathingTests", BreathingTestRoutes);
-app.use("/api/stepCounterTests", StepCounterTestRoutes);
-app.use("/patients", PatientRoutes);
-app.use("/patientsHistory", PatientHistoryRoutes);
+const RoutesIndex = require("./routes/routesIndex");
+app.use("/api", RoutesIndex);
 
-app.use("/medications", MedicationRoutes);
 
-app.get("/AuthTest", requireAuth, (req, res) => {
-  res.send(`your email : ${req.user.email}`);
-});
 
-app.get("/", (req, res) => {
-  res.send({ msg: "CareSync Test Endpoint v1" });
-});
 
 //connect to db
 mongoose
@@ -70,3 +51,13 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
+
+// Test Routes
+
+// app.get("/AuthTest", requireAuth, (req, res) => {
+//   res.send(`your email : ${req.user.email}`);
+// });
+
+app.get("/", (req, res) => {
+  res.send({ msg: "CareSync Test Endpoint v1" });
+});
