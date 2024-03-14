@@ -2,19 +2,10 @@ const {
   userSignUp,
   userSignIn,
   doctorSignUp,
-  doctorSignIn
-}=require('../controllers/authController')
-
-// import {userSignUp,
-//   userSignIn,
-//   doctorSignUp,
-//   doctorSignIn} from '../controllers/authController'
+  doctorSignIn,
+} = require("../controllers/authController");
 
 const express = require("express");
-const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const Doctor = mongoose.model("Doctor");
 
 const router = express.Router();
 
