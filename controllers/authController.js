@@ -1,7 +1,7 @@
-// const Patient = require("../models/Patient");
-// const doctor = require("../models/doctor");
-// const doctor = require("../models/doctor");
 const mongoose = require("mongoose");
+
+require("../models/Patient");
+
 const PatientData = mongoose.model("PatientData");
 const Doctor = mongoose.model("Doctor");
 

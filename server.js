@@ -4,8 +4,6 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 require("dotenv").config();
 
-require("./models/doctor");
-require("./models/Patient");
 
 // var corsOptions = {
 //   origin: "http://localhost:4000",
@@ -52,6 +50,11 @@ mongoose
     console.log(error);
   });
 
+
+
+
+
+  
 // Test Routes
 
 // app.get("/AuthTest", requireAuth, (req, res) => {
