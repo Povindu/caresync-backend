@@ -1,18 +1,27 @@
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
+const validator = require("validator")
 
 
-require("../models/PortalAdmin");
+
+require("../models/PortalAdminModel");
 const Admin = mongoose.model("Admin");
 
 const adminSignUp = async (req, res) => {
 
-  const { username, name, email, password } = req.body;
+  console.log("adminsignup")
+  const { name, email, password } = req.body;
 
-  if (!username || !name || !email || !password) {
+  if (!name || !email || !password) {
     return res
       .status(422)
-      .send({ error: "Must provide username, name, email and passoword" });
+      .send({ error: "Must provide name, email and password" });
+  }
+
+  if(!validator.isEmail(email)){
+    return res
+    .status(422)
+    .send({ error: "Email is not valid" });
   }
 
   try {
@@ -22,12 +31,12 @@ const adminSignUp = async (req, res) => {
       return res
         .status(200)
         .send({
-          error:
-            "Duplicate Email, please enter a diiferent email or signup using the email",
+          error: 
+            "Duplicate Email, please enter a diiferent email or signin using the email",
         });
     }
 
-    const user = new Admin({ username, name, email, password });
+    const user = new Admin({name, email, password });
 
     await user.save();
 
