@@ -10,6 +10,7 @@ const requireAuth = require("./middleware/requireAuth")
 // const trackRoutes = require('./routes/trackRoutes');
 const BreathingTestRoutes = require('./routes/breathingTestRoutes')
 const StepCounterTestRoutes = require('./routes/stepCountTestRoutes')
+const MedicalIncidentRoutes=require('./routes/MedicalIncidentRoutes')
 
 
 
@@ -38,6 +39,7 @@ app.get('/', requireAuth, (req, res) => {
 
 app.use('/api/breathingTests', BreathingTestRoutes)
 app.use('/api/stepCounterTests', StepCounterTestRoutes)
+app.use('/api/medicalIncident',MedicalIncidentRoutes)
 
 
 //connect to db
