@@ -1,15 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
 const cors = require("cors");
 require("dotenv").config();
 
+const Auth = require("./middleware/AuthMiddleware");
+const AdminAuth = require("./middleware/AdminAuthMiddleware.js");
 
 // var corsOptions = {
 //   origin: "http://localhost:4000",
 // };
-
-// const requireAuth = require("./middleware/requireAuth");
 
 // express app
 const app = express();
@@ -30,15 +29,13 @@ app.use((req, res, next) => {
   next();
 });
 
-
-
-
 // routes
 const RoutesIndex = require("./routes/routesIndex");
 app.use("/api", RoutesIndex);
 
-
-
+//Test API
+// app.use("/api", Auth,  RoutesIndex);
+// app.use("/api/admin", AdminAuth,  RoutesIndex);
 
 //connect to db
 mongoose
@@ -50,11 +47,6 @@ mongoose
     console.log(error);
   });
 
-
-
-
-
-  
 // Test Routes
 
 // app.get("/AuthTest", requireAuth, (req, res) => {

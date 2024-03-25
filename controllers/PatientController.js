@@ -5,7 +5,7 @@ const Patient = require("../models/PatientsModel");
 //get all Patients
 const getPatients = async (req, res) => {
   const Patients = await Patient.find({}).sort({ createdAt: -1 });
-  console.log(Patients);
+  // console.log(Patients);
   res.status(200).json(Patients);
 };
 

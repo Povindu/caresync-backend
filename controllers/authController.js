@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 require("../models/Patient");
 
 const PatientData = mongoose.model("PatientData");
@@ -12,7 +11,7 @@ const userSignUp = async (req, res) => {
     const user = new PatientData({ firstName, lastName, nic, email, password });
     await user.save();
 
-    const token = jwt.sign({ userId: user._id }, "MY_SECRET_KEY");
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_KEY);
     res.send({ token });
   } catch (err) {
     return res.status(422).send(err.message);
@@ -33,7 +32,7 @@ const userSignIn = async (req, res) => {
 
   try {
     await user.comparePassword(password);
-    const token = jwt.sign({ userId: user._id }, "MY_SECRET_KEY");
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_KEY);
     res.send({ token });
   } catch (err) {
     return res.status(422).send({ error: "Invalid password or email" });
@@ -63,7 +62,7 @@ const doctorSignUp = async (req, res) => {
     });
     await doctor.save();
 
-    const token = jwt.sign({ userId: doctor._id }, "MY_SECRET_KEY");
+    const token = jwt.sign({ userId: doctor._id }, process.env.JWT_KEY);
     res.send({ token });
   } catch (err) {
     return res.status(422).send(err.message);
@@ -84,7 +83,7 @@ const doctorSignIn = async (req, res) => {
 
   try {
     await doctor.comparePassword(password);
-    const token = jwt.sign({ userId: doctor._id }, "MY_SECRET_KEY");
+    const token = jwt.sign({ userId: doctor._id }, process.env.JWT_KEY);
     res.send({ token, medicalIdVerify: doctor.medicalIdVerify });
   } catch (err) {
     return res.status(422).send({ error: "Invalid email or password" });

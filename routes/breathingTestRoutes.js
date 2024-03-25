@@ -1,19 +1,19 @@
-const express = require('express')
+const express = require("express");
 const {
-    getbreathingTestResult,
-    createBreathingTestResult,
-    deletebreathingTestResults
-}=require('../controllers/breathingTestController')
+  getbreathingTestResult,
+  createBreathingTestResult,
+  deletebreathingTestResults,
+} = require("../controllers/breathingTestController");
 
-const router = express.Router()
+const router = express.Router();
 
 //get all results
-router.get('/', getbreathingTestResult)
+router.get("/", getbreathingTestResult);
 
 //post a new result
-router.post('/', createBreathingTestResult)
+router.post("/", createBreathingTestResult);
 
 //delete results
-router.delete('/', deletebreathingTestResults)
+router.delete("/", deletebreathingTestResults);
 
-module.exports = router
+module.exports = router;
