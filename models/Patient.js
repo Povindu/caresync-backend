@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
-const userSchema = new mongoose.Schema({
+const patientSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
@@ -23,11 +23,47 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  patientId: {
+    type: String,
+    required: true,
+  },
+  title: {
+    type: String,
+    required: true,
+  },
+  imageUrl: {
+    type: String,
+    required: true,
+  },
+  gender: {
+    type: String,
+    required: true,
+  },
+  age: {
+    type: String,
+    required: true,
+  },
+  color: {
+    type: String,
+    required: true,
+  },
+  weight: {
+    type: String,
+    required: true,
+  },
+  height: {
+    type: String,
+    required: true,
+  },
+  blood: {
+    type: String,
+    required: true,
+  },
 });
 
-userSchema.pre("save", function (next) {
-  const user = this;
-  if (!user.isModified("password")) {
+patientSchema.pre("save", function (next) {
+  const patient = this;
+  if (!patient.isModified("password")) {
     return next();
   }
 
@@ -36,21 +72,21 @@ userSchema.pre("save", function (next) {
       return next(err);
     }
 
-    bcrypt.hash(user.password, salt, (err, hash) => {
+    bcrypt.hash(patient.password, salt, (err, hash) => {
       if (err) {
         return next(err);
       }
-      user.password = hash;
+      patient.password = hash;
       next();
     });
   });
 });
 
-userSchema.methods.comparePassword = function (candidatePassword) {
-  const user = this;
+patientSchema.methods.comparePassword = function (candidatePassword) {
+  const patient = this;
 
   return new Promise((resolve, reject) => {
-    bcrypt.compare(candidatePassword, user.password, (err, isMatch) => {
+    bcrypt.compare(candidatePassword, patient.password, (err, isMatch) => {
       if (err) {
         return reject(err);
       }
@@ -64,4 +100,6 @@ userSchema.methods.comparePassword = function (candidatePassword) {
   });
 };
 
-module.exports = mongoose.model("PatientData", userSchema);
+const Patient = mongoose.model("Patient", patientSchema);
+
+module.exports = Patient;

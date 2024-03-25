@@ -2,8 +2,9 @@
 // const doctor = require("../models/doctor");
 // const doctor = require("../models/doctor");
 const mongoose = require("mongoose");
-const PatientData = mongoose.model("PatientData");
+const PatientData = mongoose.model("Patient");
 const Doctor = mongoose.model("Doctor");
+const jwt = require("jsonwebtoken");
 
 const userSignUp = async (req, res) => {
   const { firstName, lastName, nic, email, password } = req.body;
