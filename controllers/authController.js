@@ -1,9 +1,13 @@
 const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
+
 require("../models/Patient");
 const jwt = require("jsonwebtoken");
 
 const PatientData = mongoose.model("Patient");
 
+
+const Patient = mongoose.model("Patient");
 const Doctor = mongoose.model("Doctor");
 
 // const { generateTokens, generateAccessToken } = require("../utils/doctorTokenGenerate/generateAccessTokenDoctor");
@@ -37,7 +41,7 @@ const userSignUp = async (req, res) => {
   }
 
   try {
-    const user = new PatientData({ firstName, lastName, nic, email, password });
+    const user = new Patient({ firstName, lastName, nic, email, password });
     await user.save();
 
     // const token = jwt.sign({ userId: user._id }, process.env.JWT_KEY,{expiresIn: '2d'});
@@ -55,7 +59,7 @@ const userSignIn = async (req, res) => {
     return res.status(422).send({ error: "Must provide email and password" });
   }
 
-  const user = await PatientData.findOne({ email });
+  const user = await Patient.findOne({ email });
   if (!user) {
     return res.status(200).send({ error: "Invalid email" });
   }

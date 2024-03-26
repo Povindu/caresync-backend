@@ -23,7 +23,31 @@ const getPatient = async (req, res) => {
   res.status(200).json(Patient);
 };
 
+const addDocAccess = async (req, res) =>{
+  const { id } = req.params;
+  console.log(id);
+  console.log(req.body.docID);
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "No such patient" });
+  }
+  if (!mongoose.Types.ObjectId.isValid(req.body.docID)) {
+    return res.status(404).json({ error: "No such doctor" });
+  }
+
+  const patient = await Patient.findOneAndUpdate(
+    { _id: id },
+    {
+      $addToSet: { accessDoctors : req.body.docID }
+    }
+  );
+  res.status(200).json(patient);
+}
+
+
+
 module.exports = {
   getPatients,
   getPatient,
+  addDocAccess,
 };

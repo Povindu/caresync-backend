@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
+
 const doctorSchema = new mongoose.Schema({
   doctorId: {
     type: String,
@@ -57,6 +58,7 @@ const doctorSchema = new mongoose.Schema({
   },
 },
   { timestamps: true });
+
 
 doctorSchema.pre("save", function (next) {
   const doctor = this;
