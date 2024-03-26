@@ -36,6 +36,10 @@ const userSchema = new mongoose.Schema(
     blood: {
       type: String,
     },
+    accessDoctors: {
+      type: Array,
+      default: [],
+    }
   },
   { timestamps: true }
 );
@@ -79,4 +83,4 @@ userSchema.methods.comparePassword = function (candidatePassword) {
   });
 };
 
-module.exports = mongoose.model("PatientData", userSchema);
+module.exports = mongoose.model("Patient", userSchema);
