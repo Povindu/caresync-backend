@@ -146,7 +146,7 @@ const doctorSignIn = async (req, res) => {
   }
 
   const doctor = await Doctor.findOne({ email });
-  const medicalId = doctor.medicalIdVerify;
+  
   
   if (!doctor) {
     return res.status(422).send({ error: "Invalid email" });
@@ -161,6 +161,7 @@ const doctorSignIn = async (req, res) => {
 
   try {
     console.log(doctor._id, doctor.role, doctor.firstName, doctor.lastName);
+    const medicalId = doctor.medicalIdVerify;
 
     if(medicalId==false){
       return res.status(422).send({error: "Medical Id not verified"});
