@@ -1,15 +1,31 @@
 const mongoose = require("mongoose");
 require("../models/Patient");
 const jwt = require("jsonwebtoken");
-const Patient = require("../models/Patient");
-const { generateTokens } = require("../utils/generateTokenPatient");
 
-const PatientData = mongoose.model("PatientData");
+const PatientData = mongoose.model("Patient");
+
 const Doctor = mongoose.model("Doctor");
 
-const userSignUp = async (req, res) => {
+// const { generateTokens, generateAccessToken } = require("../utils/doctorTokenGenerate/generateAccessTokenDoctor");
 
-  
+const {
+  generateRefreshToken,
+} = require("../utils/TokenGenarate/generateRefreshToken");
+
+const {
+  generateAccessToken,
+} = require("../utils/TokenGenarate/generateAccessToken");
+
+// const generateAccessTokenPatient = require("../utils/patientTokenGenerate/generateAccessTokenPatient");
+
+// const generateRefreshTokenPatient = require("../utils/patientTokenGenerate/generateRefreshTokenPatient");
+
+// const generateAccessTokenDoctor = require("../utils/doctorTokenGenerate/generateAccessTokenDoctor");
+// const generateRefreshTokenDoctor = require("../utils/doctorTokenGenerate/generateRefreshTokenDoctor");
+// const generateRefreshTokenPatient = require("../utils/patientTokenGenerate/generateRefreshTokenPatient");
+const e = require("express");
+
+const userSignUp = async (req, res) => {
   const { firstName, lastName, nic, email, password } = req.body;
 
   const existingUser = await PatientData.findOne({ email });
@@ -22,7 +38,18 @@ const userSignUp = async (req, res) => {
     const user = new PatientData({ firstName, lastName, nic, email, password });
     await user.save();
 
-    const { accessToken, refreshToken } = await generateTokens(user);
+    const accessToken = generateAccessTokenPatient({
+      _id: user._id,
+      roles: user.roles,
+      fName: user.fName,
+      lName: user.lName,
+    });
+    const refreshToken = generateRefreshToken({
+      _id: user._id,
+      roles: user.roles,
+      fName: user.fName,
+      lName: user.lName,
+    });
 
     res.send({ accessToken, refreshToken });
 
@@ -48,7 +75,18 @@ const userSignIn = async (req, res) => {
   try {
     await user.comparePassword(password);
 
-    const { accessToken, refreshToken } = await generateTokens(user);
+    const accessToken = generateAccessTokenPatient({
+      _id: user._id,
+      roles: user.roles,
+      fName: user.fName,
+      lName: user.lName,
+    });
+    const refreshToken = generateRefreshToken({
+      _id: user._id,
+      roles: user.roles,
+      fName: user.fName,
+      lName: user.lName,
+    });
 
     res.send({ accessToken, refreshToken });
 
@@ -87,7 +125,18 @@ const doctorSignUp = async (req, res) => {
     });
     await doctor.save();
 
-    const { accessToken, refreshToken } = await generateTokens(doctor);
+    const accessToken = generateAccessTokenDoctor({
+      _id: doctor._id,
+      roles: doctor.roles,
+      fName: doctor.fName,
+      lName: doctor.lName,
+    });
+    const refreshToken = generateRefreshTokenDoctor({
+      _id: doctor._id,
+      roles: doctor.roles,
+      fName: doctor.fName,
+      lName: doctor.lName,
+    });
 
     res.send({ accessToken, refreshToken });
 
@@ -99,6 +148,7 @@ const doctorSignUp = async (req, res) => {
 };
 
 const doctorSignIn = async (req, res) => {
+  console.log(req.body);
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -106,6 +156,7 @@ const doctorSignIn = async (req, res) => {
   }
 
   const doctor = await Doctor.findOne({ email });
+  console.log(doctor);
   if (!doctor) {
     return res.status(422).send({ error: "Invalid email or password" });
   }
@@ -113,14 +164,33 @@ const doctorSignIn = async (req, res) => {
   try {
     await doctor.comparePassword(password);
 
-    const { accessToken, refreshToken } = await generateTokens(doctor);
+    console.log("password okay");
+
+    console.log(doctor._id, doctor.role, doctor.firstName, doctor.lastName);
+
+    const accessToken = generateAccessToken({
+      _id: doctor._id,
+      roles: doctor.role,
+      fName: doctor.firstName,
+      lName: doctor.lastName,
+    });
+
+    
+
+    const refreshToken = generateRefreshToken({
+      _id: doctor._id,
+      roles: doctor.role,
+      fName: doctor.firstName,
+      lName: doctor.lastName,
+    });
+
+    console.log("RefreshToken "+refreshToken);
 
     res.send({ accessToken, refreshToken });
 
-    // const token = jwt.sign({ userId: doctor._id }, process.env.JWT_KEY,{expiresIn: '2d'});
-    // res.send({ token, medicalIdVerify: doctor.medicalIdVerify });
+    
   } catch (err) {
-    return res.status(422).send({ error: "Invalid email or password" });
+    return res.status(422).send({ error: "error" });
   }
 };
 

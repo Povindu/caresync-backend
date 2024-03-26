@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
 const doctorSchema = new mongoose.Schema({
+  doctorId: {
+    type: String,
+    // required: true,
+  },
+
   email: {
     type: String,
     unique: true,
@@ -30,6 +35,15 @@ const doctorSchema = new mongoose.Schema({
   medicalIdVerify: {
     type: Boolean,
     default: false,
+  },
+
+  refreshToken: {
+    type: String,
+  },
+
+  role: {
+    type: String,
+    default: "doctor",
   },
 });
 

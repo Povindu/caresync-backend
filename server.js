@@ -6,6 +6,8 @@ require("dotenv").config();
 const Auth = require("./middleware/AuthMiddleware");
 const AdminAuth = require("./middleware/AdminAuthMiddleware.js");
 
+
+
 // var corsOptions = {
 //   origin: "http://localhost:4000",
 // };
@@ -30,8 +32,10 @@ app.use((req, res, next) => {
 });
 
 // routes
+// const refreshTokenRoute = require("./routes/refreshToken");
 const RoutesIndex = require("./routes/routesIndex");
 app.use("/api", RoutesIndex);
+// app.use("/api/refreshToken", refreshTokenRoute);
 
 //Test API
 // app.use("/api", Auth,  RoutesIndex);
