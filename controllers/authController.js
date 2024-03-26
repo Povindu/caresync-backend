@@ -1,6 +1,7 @@
 // const Patient = require("../models/Patient");
 // const doctor = require("../models/doctor");
 // const doctor = require("../models/doctor");
+const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const PatientData = mongoose.model("PatientData");
 const Doctor = mongoose.model("Doctor");
@@ -61,9 +62,12 @@ const doctorSignUp = async (req, res) => {
       medicalId,
       medicalIdVerify,
     });
+
     await doctor.save();
 
     const token = jwt.sign({ userId: doctor._id }, "MY_SECRET_KEY");
+    console.log("test");
+    console.log(token);
     res.send({ token });
   } catch (err) {
     return res.status(422).send(err.message);
