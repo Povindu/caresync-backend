@@ -26,6 +26,8 @@ const {
 const e = require("express");
 
 const userSignUp = async (req, res) => {
+  console.log(req.body);
+
   const { firstName, lastName, nic, email, password } = req.body;
 
   const existingUser = await PatientData.findOne({ email });
@@ -46,6 +48,7 @@ const userSignUp = async (req, res) => {
 };
 
 const userSignIn = async (req, res) => {
+  
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -54,12 +57,16 @@ const userSignIn = async (req, res) => {
 
   const user = await PatientData.findOne({ email });
   if (!user) {
-    return res.status(200).send({ error: "Invalid password or email" });
+    return res.status(200).send({ error: "Invalid email" });
   }
 
   try {
     await user.comparePassword(password);
+  } catch (err) {
+    return res.status(422).send({ error: "Invalid password or email" });
+  }
 
+  try {
     const accessToken = generateAccessTokenPatient({
       _id: user._id,
       roles: user.roles,
@@ -78,7 +85,7 @@ const userSignIn = async (req, res) => {
     // const token = jwt.sign({ userId: user._id }, process.env.JWT_KEY,{expiresIn: '2d'});
     // res.send({ token });
   } catch (err) {
-    return res.status(422).send({ error: "Invalid password or email" });
+    return res.status(422).send({ error: "Server Error" });
   }
 };
 
@@ -92,6 +99,8 @@ const doctorSignUp = async (req, res) => {
     medicalId,
     medicalIdVerify,
   } = req.body;
+
+  
 
   const existingDoctor = await Doctor.findOne({ email });
   if (existingDoctor) {
@@ -110,17 +119,15 @@ const doctorSignUp = async (req, res) => {
     });
     await doctor.save();
 
-    
-
     // const token = jwt.sign({ userId: doctor._id }, process.env.JWT_KEY,{expiresIn: '2d'});
-    res.send("Doctor created");
+    res.status(200).send("Success");
   } catch (err) {
     return res.status(422).send(err.message);
   }
 };
 
 const doctorSignIn = async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body.medicalIdVerify);
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -128,17 +135,25 @@ const doctorSignIn = async (req, res) => {
   }
 
   const doctor = await Doctor.findOne({ email });
-  console.log(doctor);
+  const medicalId = doctor.medicalIdVerify;
+  
   if (!doctor) {
-    return res.status(422).send({ error: "Invalid email or password" });
+    return res.status(422).send({ error: "Invalid email" });
   }
 
   try {
     await doctor.comparePassword(password);
-
     console.log("password okay");
+  } catch (err) {
+    return res.status(422).send({ error: "Invalid Password" });
+  }
 
+  try {
     console.log(doctor._id, doctor.role, doctor.firstName, doctor.lastName);
+
+    if(medicalId==false){
+      return res.status(422).send({error: "Medical Id not verified"});
+    }
 
     const accessToken = await generateAccessToken({
       _id: doctor._id,
@@ -146,23 +161,16 @@ const doctorSignIn = async (req, res) => {
       fName: doctor.firstName,
       lName: doctor.lastName,
     });
-
-    
-
-    
-
     const refreshToken = await generateRefreshToken({
       _id: doctor._id,
       roles: doctor.role,
       fName: doctor.firstName,
       lName: doctor.lastName,
     });
+    res.send({ accessToken, refreshToken , medicalId});
 
-    res.send({ accessToken, refreshToken });
-
-    
   } catch (err) {
-    return res.status(422).send({ error: "error" });
+    return res.status(422).send({ error: "Server Error" });
   }
 };
 
@@ -172,5 +180,3 @@ module.exports = {
   doctorSignUp,
   doctorSignIn,
 };
-
-
