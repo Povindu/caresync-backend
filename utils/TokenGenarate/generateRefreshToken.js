@@ -27,7 +27,7 @@ const generateRefreshToken = async (payload) => {
     );
   }
 
-  console.log(refreshToken);
+  // console.log(refreshToken);
 
   return refreshToken;
  

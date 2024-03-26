@@ -38,21 +38,6 @@ const userSignUp = async (req, res) => {
     const user = new PatientData({ firstName, lastName, nic, email, password });
     await user.save();
 
-    const accessToken = generateAccessTokenPatient({
-      _id: user._id,
-      roles: user.roles,
-      fName: user.fName,
-      lName: user.lName,
-    });
-    const refreshToken = generateRefreshToken({
-      _id: user._id,
-      roles: user.roles,
-      fName: user.fName,
-      lName: user.lName,
-    });
-
-    res.send({ accessToken, refreshToken });
-
     // const token = jwt.sign({ userId: user._id }, process.env.JWT_KEY,{expiresIn: '2d'});
     // res.send({ token });
   } catch (err) {
@@ -125,20 +110,7 @@ const doctorSignUp = async (req, res) => {
     });
     await doctor.save();
 
-    const accessToken = generateAccessTokenDoctor({
-      _id: doctor._id,
-      roles: doctor.roles,
-      fName: doctor.fName,
-      lName: doctor.lName,
-    });
-    const refreshToken = generateRefreshTokenDoctor({
-      _id: doctor._id,
-      roles: doctor.roles,
-      fName: doctor.fName,
-      lName: doctor.lName,
-    });
-
-    res.send({ accessToken, refreshToken });
+    
 
     // const token = jwt.sign({ userId: doctor._id }, process.env.JWT_KEY,{expiresIn: '2d'});
     // res.send({ token });
@@ -168,7 +140,7 @@ const doctorSignIn = async (req, res) => {
 
     console.log(doctor._id, doctor.role, doctor.firstName, doctor.lastName);
 
-    const accessToken = generateAccessToken({
+    const accessToken = await generateAccessToken({
       _id: doctor._id,
       roles: doctor.role,
       fName: doctor.firstName,
@@ -177,14 +149,14 @@ const doctorSignIn = async (req, res) => {
 
     
 
-    const refreshToken = generateRefreshToken({
+    
+
+    const refreshToken = await generateRefreshToken({
       _id: doctor._id,
       roles: doctor.role,
       fName: doctor.firstName,
       lName: doctor.lastName,
     });
-
-    console.log("RefreshToken "+refreshToken);
 
     res.send({ accessToken, refreshToken });
 
