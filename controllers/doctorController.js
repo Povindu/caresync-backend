@@ -1,33 +1,30 @@
 const mongoose = require("mongoose");
-const DocModel = require('../models/doctor');
-
+const DocModel = require("../models/Doctor");
 
 //Get all doctors
 const getDoctors = async (req, res) => {
   const doctors = await DocModel.find({}).sort({ createdAt: -1 });
-
   res.status(200).json(doctors);
 };
 
-
 //Get a single doctor by ID
 const getDoctor = async (req, res) => {
-    const { id } = req.params;
-  
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(404).json({ error: "No such Doctor" });
-    }
-  
-    const doc = await DocModel.findById(id);
-    if (!doc) {
-      return res.status(400).json({ error: "No such Doctor" });
-    }
-  
-    res.status(200).json(doc);
-  };
-  
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "No such Doctor" });
+  }
+
+  const doc = await DocModel.findById(id);
+  if (!doc) {
+    return res.status(400).json({ error: "No such Doctor" });
+  }
+
+  res.status(200).json(doc);
+};
+
 // Create new doctor
-const createDoctor= async (req, res) => {
+const createDoctor = async (req, res) => {
   const { name, doctorID, spec } = req.body;
 
   // add document to db
@@ -39,9 +36,7 @@ const createDoctor= async (req, res) => {
   }
 };
 
-
 // delete a doctor
-
 const deleteDoctor = async (req, res) => {
   const { id } = req.params;
 
@@ -58,7 +53,6 @@ const deleteDoctor = async (req, res) => {
 };
 
 // update a doctor
-
 const updateDoctor = async (req, res) => {
   const { id } = req.params;
 
@@ -79,13 +73,10 @@ const updateDoctor = async (req, res) => {
   res.status(200).json(doctor);
 };
 
-
-
-
 module.exports = {
-    getDoctors,
-    getDoctor,
-    createDoctor,
-    deleteDoctor,
-    updateDoctor
+  getDoctors,
+  getDoctor,
+  createDoctor,
+  deleteDoctor,
+  updateDoctor,
 };
