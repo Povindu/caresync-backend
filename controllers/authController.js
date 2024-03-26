@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
+
 
 require("../models/Patient");
 const jwt = require("jsonwebtoken");
@@ -35,6 +35,7 @@ const userSignUp = async (req, res) => {
   const { firstName, lastName, nic, email, password } = req.body;
 
   const existingUser = await PatientData.findOne({ email });
+  
 
   if (existingUser) {
     return res.status(422).send({ error: "Email is in use" });
@@ -44,6 +45,8 @@ const userSignUp = async (req, res) => {
     const user = new Patient({ firstName, lastName, nic, email, password });
     await user.save();
 
+    res.status(200).send();
+
     // const token = jwt.sign({ userId: user._id }, process.env.JWT_KEY,{expiresIn: '2d'});
     // res.send({ token });
   } catch (err) {
@@ -52,6 +55,7 @@ const userSignUp = async (req, res) => {
 };
 
 const userSignIn = async (req, res) => {
+  console.log(req.body);
   
   const { email, password } = req.body;
 
@@ -60,28 +64,31 @@ const userSignIn = async (req, res) => {
   }
 
   const user = await Patient.findOne({ email });
+
   if (!user) {
     return res.status(200).send({ error: "Invalid email" });
   }
 
   try {
     await user.comparePassword(password);
+
   } catch (err) {
     return res.status(422).send({ error: "Invalid password or email" });
   }
 
   try {
-    const accessToken = generateAccessTokenPatient({
+    console.log(user._id, user.role, user.firstName, user.lastName);
+    const accessToken = await generateAccessToken({
       _id: user._id,
-      roles: user.roles,
-      fName: user.fName,
-      lName: user.lName,
+      roles: user.role,
+      fName: user.firstName,
+      lName: user.lastName,
     });
-    const refreshToken = generateRefreshToken({
+    const refreshToken = await generateRefreshToken({
       _id: user._id,
-      roles: user.roles,
-      fName: user.fName,
-      lName: user.lName,
+      roles: user.role,
+      fName: user.firstName,
+      lName: user.lastName,
     });
 
     res.send({ accessToken, refreshToken });

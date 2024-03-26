@@ -4,6 +4,10 @@ const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema(
   {
+    patientId: {
+      type: String,
+      default: "",
+    },
     email: {
       type: String,
       unique: true,
@@ -41,7 +45,7 @@ const userSchema = new mongoose.Schema(
     accessDoctors: {
       type: Array,
       default: [],
-    }
+    },
 
     refreshToken: {
     type: String,
