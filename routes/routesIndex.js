@@ -9,6 +9,7 @@ const StepCounterTestRoutes = require("./stepCountTestRoutes");
 const MedicationRoutes = require("./medicationRoutes");
 const PatientHistoryRoutes = require("./patientHistoryRoutes");
 const PortalAuthRoutes = require("./portalAuthRoutes")
+const MedicalIncidentRoutes=require('./MedicalIncidentRoutes')
 
 router.use(authRoutes);
 router.use("/doctors", DoctorRoutes);
@@ -18,6 +19,8 @@ router.use("/patientsHistory", PatientHistoryRoutes);
 router.use("/patients", PatientRoutes);
 router.use("/medications", MedicationRoutes);
 router.use("/portal/auth", PortalAuthRoutes);
+router.use("/api/medicalIncident",MedicalIncidentRoutes);
+
 
 
 
