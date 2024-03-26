@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
-const doctor = require("../../models/doctor");
+const Doctor = require("../../models/doctor");
+const Patient = require("../../models/Patient");
 
 const generateRefreshToken = async (payload) => {
   console.log("payload", payload);
@@ -7,30 +8,29 @@ const generateRefreshToken = async (payload) => {
     expiresIn: "7d",
   });
 
-  let updatedDoctor;
+  let updatedUser;
 
   if (payload.roles === "doctor") {
-    updatedDoctor = await doctor.findOneAndUpdate(
-      { doctorId: payload._id },
-      { token: refreshToken },
-      { new: true, upsert: true }
+    console.log("doctor");
+    updatedUser = await Doctor.findOneAndUpdate(
+      { _id: payload._id }, 
+      { doctorId: payload._id},
+      { refreshToken: refreshToken },
+      { new: true }
     );
   }
-
-  let updatedPatient;
 
   if (payload.roles === "patient") {
-    updatedPatient = await patient.findOneAndUpdate(
-      { patientId: payload._id },
-      { token: refreshToken },
-      { new: true, upsert: true }
+    console.log("patient");
+    updatedUser = await Patient.findOneAndUpdate(
+      { _id: payload._id }, 
+      { patientId: payload._id},
+      { refreshToken: refreshToken },
+      { new: true }
     );
   }
 
-  // console.log(refreshToken);
-
   return refreshToken;
- 
 };
 
 module.exports = { generateRefreshToken };

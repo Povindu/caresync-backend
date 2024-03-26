@@ -113,7 +113,7 @@ const doctorSignUp = async (req, res) => {
     
 
     // const token = jwt.sign({ userId: doctor._id }, process.env.JWT_KEY,{expiresIn: '2d'});
-    // res.send({ token });
+    res.send("Doctor created");
   } catch (err) {
     return res.status(422).send(err.message);
   }
@@ -172,3 +172,5 @@ module.exports = {
   doctorSignUp,
   doctorSignIn,
 };
+
+

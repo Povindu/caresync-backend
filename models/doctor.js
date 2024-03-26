@@ -5,6 +5,7 @@ const doctorSchema = new mongoose.Schema({
   doctorId: {
     type: String,
     // required: true,
+    default: "",
   },
 
   email: {
@@ -39,13 +40,23 @@ const doctorSchema = new mongoose.Schema({
 
   refreshToken: {
     type: String,
+    default: "",
   },
 
   role: {
     type: String,
     default: "doctor",
   },
-});
+  specialization: {
+    type:String,
+    default: "General"
+  },
+  accessPatients:{
+    type: Array,
+    default: []
+  },
+},
+  { timestamps: true });
 
 doctorSchema.pre("save", function (next) {
   const doctor = this;
