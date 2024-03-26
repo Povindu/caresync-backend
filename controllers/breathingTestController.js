@@ -1,4 +1,4 @@
-const breathingTest = require("../models/MediTestingModels/breathingTestModel");
+const breathingTest = require("../models/MediTestingModels/breathingTestModel.js");
 
 //get results
 const getbreathingTestResult = async (req, res) => {
