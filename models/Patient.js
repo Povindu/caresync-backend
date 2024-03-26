@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
+
 const userSchema = new mongoose.Schema(
   {
     email: {
@@ -36,13 +37,23 @@ const userSchema = new mongoose.Schema(
     blood: {
       type: String,
     },
+
     accessDoctors: {
       type: Array,
       default: [],
     }
+
+    refreshToken: {
+    type: String,
+  },
+  role:{
+    type: String,
+    default: "patient",
+  }
   },
   { timestamps: true }
 );
+
 
 userSchema.pre("save", function (next) {
   const user = this;

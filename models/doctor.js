@@ -1,48 +1,64 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
-const doctorSchema = new mongoose.Schema(
-  {
-    email: {
-      type: String,
-      unique: true,
-      required: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-    nic: {
-      type: String,
-      required: true,
-    },
-    firstName: {
-      type: String,
-      required: true,
-    },
-    lastName: {
-      type: String,
-      required: true,
-    },
-    medicalId: {
-      type: String,
-      required: true,
-    },
-    medicalIdVerify: {
-      type: Boolean,
-      default: false,
-    },
-    specialization: {
-      type: String,
-      default: "General",
-    },
-    accessPatients: {
-      type: Array,
-      default: [],
-    },
+
+const doctorSchema = new mongoose.Schema({
+  doctorId: {
+    type: String,
+    // required: true,
+    default: "",
   },
-  { timestamps: true }
-);
+
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  nic: {
+    type: String,
+    required: true,
+  },
+  firstName: {
+    type: String,
+    required: true,
+  },
+  lastName: {
+    type: String,
+    required: true,
+  },
+  medicalId: {
+    type: String,
+    required: true,
+  },
+  medicalIdVerify: {
+    type: Boolean,
+    default: false,
+  },
+
+  refreshToken: {
+    type: String,
+    default: "",
+  },
+
+  role: {
+    type: String,
+    default: "doctor",
+  },
+  specialization: {
+    type:String,
+    default: "General"
+  },
+  accessPatients:{
+    type: Array,
+    default: []
+  },
+},
+  { timestamps: true });
+
 
 doctorSchema.pre("save", function (next) {
   const doctor = this;
