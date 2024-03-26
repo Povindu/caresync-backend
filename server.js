@@ -1,6 +1,6 @@
 
 require('dotenv').config()
-const express = require('express')
+
 const mongoose = require('mongoose')
 
 
@@ -14,7 +14,7 @@ const StepCounterTestRoutes = require('./routes/stepCountTestRoutes')
 const MedicalIncidentRoutes=require('./routes/MedicalIncidentRoutes')
 
 const express = require("express");
-const mongoose = require("mongoose");
+
 const cors = require("cors");
 require("dotenv").config();
 
