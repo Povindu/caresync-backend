@@ -1,48 +1,53 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
-const userSchema = new mongoose.Schema({
-  patientId: {
-    type: String,
-    // required: true,
-  },
 
-  email: {
+const userSchema = new mongoose.Schema(
+  {
+    email: {
+      type: String,
+      unique: true,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    nic: {
+      type: String,
+      required: true,
+    },
+    firstName: {
+      type: String,
+      required: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
+    },
+    gender: {
+      type: String,
+    },
+    age: {
+      type: String,
+    },
+    height: {
+      type: String,
+    },
+    blood: {
+      type: String,
+    },
+    refreshToken: {
     type: String,
-    unique: true,
-    required: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  nic: {
-    type: String,
-    required: true,
-  },
-  firstName: {
-    type: String,
-    required: true,
-  },
-  lastName: {
-    type: String,
-    required: true,
-  },
-
-  refreshToken: {
-    type: String,
-    
   },
   role:{
     type: String,
     default: "patient",
-  
   }
+  },
+  { timestamps: true }
+);
 
-  
-
-
-});
 
 userSchema.pre("save", function (next) {
   const user = this;

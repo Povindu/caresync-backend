@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Medication = require("../models/Medications");
-const Patient = require("../models/PatientsModel");
-const Medications = require("../models/Medications");
+const Patient = require("../models/Patient");
 
 // Route to fetch medication data for a specific patient
 router.post("/", async (req, res) => {
@@ -44,7 +43,7 @@ router.delete("/delete", async (req, res) => {
     const { selectedDate, medicalDetails } = req.body;
     console.log(selectedDate, medicalDetails);
 
-    const medication = await Medications.findOneAndDelete({
+    const medication = await Medication.findOneAndDelete({
       selectedDate,
       medicalDetails,
     });

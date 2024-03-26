@@ -63,7 +63,7 @@ const adminSignIn = async (req, res) => {
     );
     res.send({ token });
   } catch (err) {
-    return res.status(401).send({ error: "Invalid password or email" });
+    return res.status(401).send({ error: "Invalid password" });
   }
 };
 
