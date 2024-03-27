@@ -5,10 +5,8 @@ const bcrypt = require("bcrypt");
 const doctorSchema = new mongoose.Schema({
   doctorId: {
     type: String,
-    // required: true,
     default: "",
   },
-
   email: {
     type: String,
     unique: true,
@@ -38,12 +36,10 @@ const doctorSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-
   refreshToken: {
     type: String,
     default: "",
   },
-
   role: {
     type: String,
     default: "doctor",

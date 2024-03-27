@@ -44,10 +44,28 @@ const addDocAccess = async (req, res) =>{
   res.status(200).json(patient);
 }
 
+// delete a patient
+const deletePatient = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "no such patient" });
+  }
+
+  console.log(id);
+  const patient = await Patient.findOneAndDelete({ _id: id });
+
+  if (!patient) {
+    return res.status(400).json({ error: "No such patient" });
+  }
+  res.status(200).json({ message: "Patient deleted"});
+};
+
 
 
 module.exports = {
   getPatients,
   getPatient,
+  deletePatient,
   addDocAccess,
 };

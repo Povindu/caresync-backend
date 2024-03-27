@@ -24,17 +24,17 @@ const getDoctor = async (req, res) => {
 };
 
 // Create new doctor
-const createDoctor = async (req, res) => {
-  const { name, doctorID, spec } = req.body;
+// const createDoctor = async (req, res) => {
+//   const { name, doctorID, spec } = req.body;
 
-  // add document to db
-  try {
-    const doc = await DocModel.create({ name, doctorID, spec });
-    res.status(200).json(doc);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
+//   // add document to db
+//   try {
+//     const doc = await DocModel.create({ name, doctorID, spec });
+//     res.status(200).json(doc);
+//   } catch (error) {
+//     res.status(400).json({ error: error.message });
+//   }
+// };
 
 // delete a doctor
 const deleteDoctor = async (req, res) => {
@@ -49,7 +49,7 @@ const deleteDoctor = async (req, res) => {
   if (!doctor) {
     return res.status(400).json({ error: "No such doctor" });
   }
-  res.status(200).json(doctor);
+  res.status(200).json({ message: "Doctor deleted"});
 };
 
 // update a doctor
@@ -93,18 +93,32 @@ const addPatientAccess = async (req, res) =>{
     }
   );
 
-  // if (!doctor) {
-  //   return res.status(400).json({ error: "No such doctor" });
-  // }
-
   res.status(200).json(doctor);
+}
+
+const verifyDoctor = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "No such Doctor" });
+  }
+
+  const doctor = await DocModel.findOneAndUpdate(
+    { _id: id },
+    {
+      medicalIdVerify : true,
+    }
+  );
+  console.log(doctor);
+  res.status(200).json({message: "Doctor Verified"});
+
 }
 
 module.exports = {
   getDoctors,
   getDoctor,
-  createDoctor,
   deleteDoctor,
   updateDoctor,
   addPatientAccess,
+  verifyDoctor,
 };

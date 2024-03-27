@@ -21,6 +21,7 @@ const adminSignUp = async (req, res) => {
   }
 
   try {
+    
     const userFind = await Admin.findOne({ email });
 
     if (userFind) {
