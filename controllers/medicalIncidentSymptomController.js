@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 
 // Create a new medical incident
 const createSymptomMedicalIncident = async (req, res) => {
-  const { incidentType, date,SymptomDescription,Frequency,severity,duration} = req.body;
+  const { incidentType, date,SymptomDescription} = req.body;
   
   try {
     // Create a new test medical incident document
-    const symptomMedicalIncident = await SymptomMedicalIncident.create({ incidentType, date ,SymptomDescription,Frequency,severity,duration});
+    const symptomMedicalIncident = await SymptomMedicalIncident.create({ incidentType, date ,SymptomDescription});
 
     // Respond with the created test medical incident
     res.status(200).json(symptomMedicalIncident);

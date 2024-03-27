@@ -3,6 +3,16 @@ const mongoose= require('mongoose')
 const Schema = mongoose.Schema
 
 const MedicalIncidentSchema= new Schema({
+    //medical record data
+    RecName:{
+        type: 'string',
+    },
+    record_description:{
+        type: 'string',
+    },
+    weight:{
+        type: 'string',
+    },
    //Test Modal data
    incidentType:{
         type:String,
