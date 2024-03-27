@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const DocModel = require("../models/Doctor");
+const DocModel = require("../models/doctor");
 
 //Get all doctors
 const getDoctors = async (req, res) => {
@@ -73,10 +73,38 @@ const updateDoctor = async (req, res) => {
   res.status(200).json(doctor);
 };
 
+
+const addPatientAccess = async (req, res) =>{
+  const { id } = req.params;
+  console.log(id);
+  console.log(req.body.patientID);
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "No such doctor" });
+  }
+  if (!mongoose.Types.ObjectId.isValid(req.body.patientID)) {
+    return res.status(404).json({ error: "No such patient" });
+  }
+
+  const doctor = await DocModel.findOneAndUpdate(
+    { _id: id },
+    {
+      $addToSet: { accessPatients : req.body.patientID }
+    }
+  );
+
+  // if (!doctor) {
+  //   return res.status(400).json({ error: "No such doctor" });
+  // }
+
+  res.status(200).json(doctor);
+}
+
 module.exports = {
   getDoctors,
   getDoctor,
   createDoctor,
   deleteDoctor,
   updateDoctor,
+  addPatientAccess,
 };

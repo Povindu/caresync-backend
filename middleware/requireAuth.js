@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
 
-const PatientData = mongoose.model("PatientData");
+const PatientData = mongoose.model("Patient");
 const Doctor = mongoose.model("Doctor");
 
 module.exports = async (req, res, next) => {
