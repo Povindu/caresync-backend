@@ -19,8 +19,7 @@ router.use("/patientsHistory", PatientHistoryRoutes);
 router.use("/patients", PatientRoutes);
 router.use("/medications", MedicationRoutes);
 router.use("/portal/auth", PortalAuthRoutes);
-router.use("/api/medicalIncident",MedicalIncidentRoutes);
-
+router.use("/medicalIncident",MedicalIncidentRoutes);
 
 
 
