@@ -55,7 +55,7 @@ const doctorSchema = new mongoose.Schema({
 },
   { timestamps: true });
 
-
+// Hash the password before saving the user model
 doctorSchema.pre("save", function (next) {
   const doctor = this;
   if (!doctor.isModified("password")) {
@@ -77,6 +77,8 @@ doctorSchema.pre("save", function (next) {
   });
 });
 
+
+// Compare the password given by the user and the one in the database
 doctorSchema.methods.comparePassword = function (candidatePassword) {
   const doctor = this;
 

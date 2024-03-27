@@ -73,7 +73,7 @@ const updateDoctor = async (req, res) => {
   res.status(200).json(doctor);
 };
 
-
+// Add a patient's profile access to doctor
 const addPatientAccess = async (req, res) =>{
   const { id } = req.params;
   console.log(id);
@@ -96,6 +96,8 @@ const addPatientAccess = async (req, res) =>{
   res.status(200).json(doctor);
 }
 
+
+// Verify a doctor
 const verifyDoctor = async (req, res) => {
   const { id } = req.params;
 

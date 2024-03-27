@@ -11,7 +11,3 @@ module.exports = (req, res, next) => {
         });
     }
 };
-
-//TODO-similar file to check role of user.
-//TODO-get user role from jwt.
-//TODO-role as input to middleware.

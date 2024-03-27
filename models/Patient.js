@@ -54,7 +54,7 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
+// Hash the password before saving the user model
 userSchema.pre("save", function (next) {
   const user = this;
   if (!user.isModified("password")) {
@@ -76,6 +76,7 @@ userSchema.pre("save", function (next) {
   });
 });
 
+// Compare the password entered by the user with the hashed password stored in the database
 userSchema.methods.comparePassword = function (candidatePassword) {
   const user = this;
 

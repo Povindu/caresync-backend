@@ -20,6 +20,7 @@ const AdminSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Hash the password before saving the user model
 AdminSchema.pre("save", function (next) {
   const Admin = this;
   if (!Admin.isModified("password")) {
@@ -41,6 +42,7 @@ AdminSchema.pre("save", function (next) {
   });
 });
 
+// Compare the password given with the hashed password in the database
 AdminSchema.methods.comparePassword = function (candidatePassword) {
   const Admin = this;
 

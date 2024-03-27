@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
-
 require("../models/Patient");
-const jwt = require("jsonwebtoken");
 
 const Patient = mongoose.model("Patient");
 const Doctor = mongoose.model("Doctor");
@@ -13,8 +11,6 @@ const {
 const {
   generateAccessToken,
 } = require("../utils/TokenGenarate/generateAccessToken");
-
-const e = require("express");
 
 const userSignUp = async (req, res) => {
   console.log(req.body);
@@ -32,7 +28,6 @@ const userSignUp = async (req, res) => {
     await user.save();
 
     res.status(200).send();
-
   } catch (err) {
     return res.status(400).send(err.message);
   }
@@ -75,9 +70,6 @@ const userSignIn = async (req, res) => {
     });
 
     res.status(200).send({ accessToken, refreshToken });
-
-    // const token = jwt.sign({ userId: user._id }, process.env.JWT_KEY,{expiresIn: '2d'});
-    // res.send({ token });
   } catch (err) {
     return res.status(400).send({ error: "Server Error" });
   }
@@ -111,7 +103,6 @@ const doctorSignUp = async (req, res) => {
     });
     await doctor.save();
 
-    // const token = jwt.sign({ userId: doctor._id }, process.env.JWT_KEY,{expiresIn: '2d'});
     res.status(200).send("Success");
   } catch (err) {
     return res.status(400).send(err.message);
@@ -119,7 +110,6 @@ const doctorSignUp = async (req, res) => {
 };
 
 const doctorSignIn = async (req, res) => {
-  // console.log(req.body.medicalIdVerify);
   const { email, password } = req.body;
 
   if (!email || !password) {

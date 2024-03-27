@@ -6,6 +6,7 @@ require("../models/PortalAdminModel");
 
 const Admin = mongoose.model("Admin");
 
+//Admin signup
 const adminSignUp = async (req, res) => {
   console.log("adminsignup");
   const { name, email, password } = req.body;
@@ -21,7 +22,6 @@ const adminSignUp = async (req, res) => {
   }
 
   try {
-    
     const userFind = await Admin.findOne({ email });
 
     if (userFind) {
@@ -41,6 +41,7 @@ const adminSignUp = async (req, res) => {
   }
 };
 
+// Admin signin
 const adminSignIn = async (req, res) => {
   const { email, password } = req.body;
 

@@ -9,10 +9,10 @@ const express = require("express");
 
 const router = express.Router();
 
-// Patient (User) Sign-up
+// Patient Sign-up
 router.post("/signup", userSignUp);
 
-// Patient (User) Sign-in
+// Patient Sign-in
 router.post("/signin", userSignIn);
 
 // Doctor Sign-up
