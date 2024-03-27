@@ -22,7 +22,10 @@ const MedicalIncidentSchema= new Schema({
         required:true,
     },
     //Symptom Modal data
-    
+    SymtopDescription:{
+        type:String,
+        required:true,
+    }
    
     
 },
