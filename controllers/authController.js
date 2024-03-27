@@ -118,12 +118,11 @@ const doctorSignIn = async (req, res) => {
   }
 
   const doctor = await Doctor.findOne({ email });
-  const medicalId = doctor.medicalIdVerify;
 
   if (!doctor) {
     return res.status(400).send({ error: "Invalid email" });
   }
-
+  const medicalId = doctor.medicalIdVerify;
   try {
     await doctor.comparePassword(password);
     console.log("password okay");

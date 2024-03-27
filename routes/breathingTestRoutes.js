@@ -6,7 +6,6 @@ const {
 } = require("../controllers/breathingTestController");
 
 const router = express.Router();
-
 //get all results
 router.get("/", getbreathingTestResult);
 
