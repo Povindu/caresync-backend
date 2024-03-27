@@ -3,6 +3,10 @@ const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema(
   {
+    patientId: {
+      type: String,
+      default: "",
+    },
     email: {
       type: String,
       unique: true,
@@ -35,6 +39,17 @@ const userSchema = new mongoose.Schema(
     },
     blood: {
       type: String,
+    },
+    accessDoctors: {
+      type: Array,
+      default: [],
+    },
+    refreshToken: {
+      type: String,
+    },
+    role: {
+      type: String,
+      default: "patient",
     },
   },
   { timestamps: true }
@@ -79,4 +94,4 @@ userSchema.methods.comparePassword = function (candidatePassword) {
   });
 };
 
-module.exports = mongoose.model("PatientData", userSchema);
+module.exports = mongoose.model("Patient", userSchema);
