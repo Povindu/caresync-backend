@@ -6,23 +6,67 @@ const MedicalIncidentSchema= new Schema({
    //Test Modal data
    incidentType:{
         type:String,
-        required:true,
+        
     },
     date:{
         type: Date,
-        required:true,
+        
     },
     testType:{
         type:String,
-        required:true,
+        
     },
 
     testProvider:{
         type:String,
-        required:true,
+        
     },
     //Symptom Modal data
-    
+    SymptomDescription:{
+        type:String,
+        
+    },
+    Frequency:{
+        type:String,
+        
+    },
+    severity:{
+        type:String,
+        
+    },
+    duration:{
+        type:String,
+       
+    },
+    //medication modal data
+    medi_name:{
+        type:String,
+        
+    },
+    dosage:{
+        type:String,
+     
+    },
+    medi_Frequency:{
+        type:String,
+      
+    },
+
+    //appointment modal data
+    purpose:{
+        type:String,
+      
+    },
+    health_pro_name:{
+        type:String,
+       
+       
+    },
+    health_pro_contact:{
+        type:String,
+        
+       
+    },
    
     
 },
