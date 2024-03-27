@@ -3,33 +3,37 @@ const Schema = mongoose.Schema;
 
 const PatientHistorySchema = new Schema(
   {
+    patientId:{
+      type: String,
+
+    },
     recordId: {
       type: String,
-      required: true,
+ 
     },
     title: {
       type: String,
-      required: true,
+
     },
     date: {
       type: String,
-      required: true,
+
     },
     description: {
       type: String,
-      required: true,
+
     },
     doctor: {
       type: String,
-      required: true,
+
     },
     symptom: {
       type: String,
-      required: true,
+
     },
     presId: {
       type: String,
-      required: true,
+
     },
   },
   { timestamps: true }

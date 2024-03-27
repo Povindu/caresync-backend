@@ -8,7 +8,7 @@ const PatientHistory = require("./../models/patientHistory");
 const getPatientsHistory = async (req, res) => {
   try {
     console.log("Fetching patients history");
-    const patientsHistory = await PatientHistory.find();
+    const patientsHistory = await PatientHistory.find({}).sort({ createdAt: -1 });;
     // .sort({
     //   createdAt: -1,
     // });
