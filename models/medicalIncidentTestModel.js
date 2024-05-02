@@ -1,90 +1,85 @@
-const mongoose= require('mongoose')
+const mongoose = require("mongoose");
 
-const Schema = mongoose.Schema
+const Schema = mongoose.Schema;
 
-const MedicalIncidentSchema= new Schema({
+const MedicalIncidentSchema = new Schema(
+  {
     //medical record data
-    recordName:{
-        type:String,
+    recordName: {
+      type: String,
     },
-    recordDescription:{
-        type:String,
+    recordDescription: {
+      type: String,
     },
-    weight:{
-        type:String,
+    weight: {
+      type: String,
     },
-    appetite:{
-        type:String,
-    },
-
-   //Test Modal data
-   incidentType:{
-        type:String,
-        
-    },
-    date:{
-        type: Date,
-        
-    },
-    testType:{
-        type:String,
-        
+    appetite: {
+      type: String,
     },
 
-    testProvider:{
-        type:String,
-        
+
+    incident:{
+        type:[{
+            incidentType: {
+                type: String,
+              },
+              date: {
+                type: Date,
+              },
+              testType: {
+                type: String,
+              },
+          
+              testProvider: {
+                type: String,
+              },
+
+
+    }]
     },
+
+    // //Test Modal data
+    // incidentType: {
+    //   type: String,
+    // },
+    
     //Symptom Modal data
-    symptomDescription:{
-        type:String,
-        
+    symptomDescription: {
+      type: String,
     },
-    frequency:{
-        type:String,
-        
+    frequency: {
+      type: String,
     },
-    severity:{
-        type:String,
-        
+    severity: {
+      type: String,
     },
-    duration:{
-        type:String,
-       
+    duration: {
+      type: String,
     },
     //medication modal data
-    medi_name:{
-        type:String,
-        
+    medi_name: {
+      type: String,
     },
-    dosage:{
-        type:String,
-     
+    dosage: {
+      type: String,
     },
-    medi_Frequency:{
-        type:String,
-      
+    medi_Frequency: {
+      type: String,
     },
 
     //appointment modal data
-    purpose:{
-        type:String,
-      
+    purpose: {
+      type: String,
     },
-    health_pro_name:{
-        type:String,
-       
-       
+    health_pro_name: {
+      type: String,
     },
-    health_pro_contact:{
-        type:String,
-        
-       
+    health_pro_contact: {
+      type: String,
     },
-   
-    
-},
-{timestamps:true})
+  },
+  { timestamps: true }
+);
 
-module.exports=mongoose.model('MedicalIncident', MedicalIncidentSchema)
-
+module.exports = mongoose.model("MedicalIncident", MedicalIncidentSchema);
