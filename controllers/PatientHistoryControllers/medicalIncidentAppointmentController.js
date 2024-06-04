@@ -1,4 +1,4 @@
-const AppointmentMedicalIncident = require("../models/medicalIncidentTestModel");
+const AppointmentMedicalIncident = require("../../models/medicalIncidentTestModel");
 const mongoose = require("mongoose");
 
 const createAppointmentMedicalIncident = async (req, res) => {
@@ -11,7 +11,6 @@ const createAppointmentMedicalIncident = async (req, res) => {
       appointmentPurpose,
       health_pro_name,
       health_pro_contact
-
     } = req.body;
 
     // Check if a document with the provided recordName and recordDescription exists
@@ -42,10 +41,6 @@ const createAppointmentMedicalIncident = async (req, res) => {
       appointmentPurpose,
       health_pro_name,
       health_pro_contact
-
-
-
-
     });
 
     // Save the updated document

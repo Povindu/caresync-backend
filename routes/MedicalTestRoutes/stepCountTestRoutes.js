@@ -4,7 +4,7 @@ const {
   createStepCountResult,
   deleteStepCounterTestResult,
   deleteOneStepCountResult,
-} = require("../controllers/stepCountController");
+} = require("../../controllers/MedicalTestControllers/stepCountController");
 
 const router = express.Router();
 

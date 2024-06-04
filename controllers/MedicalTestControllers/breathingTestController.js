@@ -1,5 +1,5 @@
 const { response } = require("express");
-const breathingTest = require("../models/MediTestingModels/breathingTestModel.js");
+const breathingTest = require("../../models/MedicalTestingModels/breathingTestModel.js");
 
 // //get results
 // const getbreathingTestResult = async (req, res) => {

@@ -1,34 +1,31 @@
-
 const express = require("express");
 const router = express.Router();
 const {
   createTestMedicalIncident,
   GetTestMedicalIncident,
-} = require("../controllers/medicalIncidentController");
+} = require("../controllers/PatientHistoryControllers/medicalIncidentController");
 
 const {
   createSymptomMedicalIncident,
-} = require("../controllers/medicalIncidentSymptomController");
+} = require("../controllers/PatientHistoryControllers/medicalIncidentSymptomController");
 
 const {
   createMedicationMedicalIncident,
-} = require("../controllers/medicalIncidentMedicationController");
+} = require("../controllers/PatientHistoryControllers/medicalIncidentMedicationController");
 
 const {
   createAppointmentMedicalIncident,
-} = require("../controllers/medicalIncidentAppointmentController");
-
-
+} = require("../controllers/PatientHistoryControllers/medicalIncidentAppointmentController");
 
 // Define a single POST route
 router.post("/", (req, res, next) => {
-
   const type = req.body.type;
 
-  switch (type) {
+  console.log("Type: ", type);
 
+  switch (type) {
     case "symptom":
-      createSymptomMedicalIncident(req, res, next);// If type is "symptom", call the first controller function
+      createSymptomMedicalIncident(req, res, next); // If type is "symptom", call the first controller function
       break;
 
     case "test":

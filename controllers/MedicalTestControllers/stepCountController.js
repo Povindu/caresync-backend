@@ -1,4 +1,4 @@
-const stepCount = require("../models/MediTestingModels/stepCountModel");
+const stepCount = require("../../models/MedicalTestingModels/stepCountModel");
 
 //get results
 // const getStepCounterTestResult = async (req, res) => {

@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;
+  console.log("Auth Middleware: ");
 
   if (!authorization) {
     console.log("No authorization header found in request.");

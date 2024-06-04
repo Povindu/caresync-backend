@@ -1,4 +1,4 @@
-const SymptomMedicalIncident = require("../models/medicalIncidentTestModel");
+const SymptomMedicalIncident = require("../../models/medicalIncidentTestModel");
 const mongoose = require("mongoose");
 
 const createSymptomMedicalIncident = async (req, res) => {
@@ -14,9 +14,7 @@ const createSymptomMedicalIncident = async (req, res) => {
       severity,
       SymptomDuration,
       appetite,
-      weight
-
-
+      weight,
     } = req.body;
 
     // Check if a document with the provided recordName and recordDescription exists
@@ -30,17 +28,19 @@ const createSymptomMedicalIncident = async (req, res) => {
       medicalIncident = new SymptomMedicalIncident({
         recordName,
         recordDescription,
-        incident: [{
-          incidentType,
-          date,
-          symptomType,
-          symptom_Description,
-          symptomFrequency,
-          severity,
-          SymptomDuration,
-          appetite,
-          weight
-        }],
+        incident: [
+          {
+            incidentType,
+            date,
+            symptomType,
+            symptom_Description,
+            symptomFrequency,
+            severity,
+            SymptomDuration,
+            appetite,
+            weight,
+          },
+        ],
       });
     }
 
@@ -54,11 +54,7 @@ const createSymptomMedicalIncident = async (req, res) => {
       severity,
       SymptomDuration,
       appetite,
-      weight
-
-
-
-
+      weight,
     });
 
     // Save the updated document
@@ -74,7 +70,9 @@ const createSymptomMedicalIncident = async (req, res) => {
 const GetSymptomMedicalIncident = async (req, res) => {
   try {
     console.log("Fetching symptoms");
-    const Symptoms = await SymptomMedicalIncident.find({}).sort({ createdAt: -1 });
+    const Symptoms = await SymptomMedicalIncident.find({}).sort({
+      createdAt: -1,
+    });
     // .sort({
     //   createdAt: -1,
     // });
@@ -88,7 +86,5 @@ const GetSymptomMedicalIncident = async (req, res) => {
 
 module.exports = {
   createSymptomMedicalIncident,
-  GetSymptomMedicalIncident
+  GetSymptomMedicalIncident,
 };
-
-

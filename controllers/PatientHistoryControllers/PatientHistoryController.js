@@ -1,8 +1,8 @@
 // backend/controllers/patientHistoryController.js
 
 // const PatientHistory = require("../models/patientHistory");
-const Patient = require("../models/Patient");
-const PatientHistory = require("./../models/patientHistory");
+const Patient = require("../../models/Patient");
+const PatientHistory = require("../../models/patientHistory");
 
 // Get all patients history
 const getPatientsHistory = async (req, res) => {
@@ -25,7 +25,18 @@ const getPatientsHistory = async (req, res) => {
 const enterData = async (req, res) => {
   const { recordId, title, date, description, doctor, symptom, presId } =
     await req.body;
-  console.log(req.body);
+
+  console.log(
+    "Req.Body Data ",
+    recordId,
+    title,
+    date,
+    description,
+    doctor,
+    symptom,
+    presId
+  );
+
   try {
     const patientHistory = new PatientHistory({
       recordId,
@@ -37,6 +48,7 @@ const enterData = async (req, res) => {
       presId,
     });
     const newPatientHistory = await patientHistory.save();
+    console.log(newPatientHistory);
     res.status(201).json(newPatientHistory);
   } catch (error) {
     console.error("Error entering patient history:", error);
