@@ -86,6 +86,7 @@ const userSignIn = async (req, res) => {
 
     res.status(200).send({ accessToken, refreshToken });
   } catch (err) {
+    console.log("error1: ", err);
     return res.status(400).send({ error: "Server Error" });
   }
 };
