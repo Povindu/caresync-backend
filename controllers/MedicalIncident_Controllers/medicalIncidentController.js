@@ -1,12 +1,12 @@
 const TestMedicalIncident = require("../../models/medicalIncidentTestModel");
 const mongoose = require("mongoose");
 
-
 const createTestMedicalIncident = async (req, res) => {
   try {
     const {
       recordName,
-      recordDescription, incidentType,
+      recordDescription,
+      incidentType,
       date,
       testType,
       testProvider,
@@ -23,13 +23,14 @@ const createTestMedicalIncident = async (req, res) => {
       medicalIncident = new TestMedicalIncident({
         recordName,
         recordDescription,
-        incident: [{
-          incidentType,
-          date,
-          testType,
-          testProvider,
-
-        }],
+        incident: [
+          {
+            incidentType,
+            date,
+            testType,
+            testProvider,
+          },
+        ],
       });
     }
 
@@ -39,7 +40,6 @@ const createTestMedicalIncident = async (req, res) => {
       date,
       testType,
       testProvider,
-
     });
 
     // Save the updated document

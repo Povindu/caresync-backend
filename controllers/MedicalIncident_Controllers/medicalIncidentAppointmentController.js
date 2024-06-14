@@ -10,8 +10,7 @@ const createAppointmentMedicalIncident = async (req, res) => {
       date,
       appointmentPurpose,
       health_pro_name,
-      health_pro_contact
-
+      health_pro_contact,
     } = req.body;
 
     // Check if a document with the provided recordName and recordDescription exists
@@ -25,13 +24,15 @@ const createAppointmentMedicalIncident = async (req, res) => {
       medicalIncident = new AppointmentMedicalIncident({
         recordName,
         recordDescription,
-        incident: [{
-          incidentType,
-          date,
-          appointmentPurpose,
-          health_pro_name,
-          health_pro_contact
-        }],
+        incident: [
+          {
+            incidentType,
+            date,
+            appointmentPurpose,
+            health_pro_name,
+            health_pro_contact,
+          },
+        ],
       });
     }
 
@@ -41,11 +42,7 @@ const createAppointmentMedicalIncident = async (req, res) => {
       date,
       appointmentPurpose,
       health_pro_name,
-      health_pro_contact
-
-
-
-
+      health_pro_contact,
     });
 
     // Save the updated document
@@ -61,7 +58,9 @@ const createAppointmentMedicalIncident = async (req, res) => {
 const GetAppointmentMedicalIncident = async (req, res) => {
   try {
     console.log("Fetching symptoms");
-    const Appointments = await AppointmentMedicalIncident.find({}).sort({ createdAt: -1 });
+    const Appointments = await AppointmentMedicalIncident.find({}).sort({
+      createdAt: -1,
+    });
     // .sort({
     //   createdAt: -1,
     // });
@@ -75,7 +74,5 @@ const GetAppointmentMedicalIncident = async (req, res) => {
 
 module.exports = {
   createAppointmentMedicalIncident,
-  GetAppointmentMedicalIncident
+  GetAppointmentMedicalIncident,
 };
-
-

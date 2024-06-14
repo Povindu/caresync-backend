@@ -10,10 +10,7 @@ const createMedicationMedicalIncident = async (req, res) => {
       date,
       medi_name,
       medi_dosage,
-      medi_Frequency
-
-
-
+      medi_Frequency,
     } = req.body;
 
     // Check if a document with the provided recordName and recordDescription exists
@@ -27,14 +24,15 @@ const createMedicationMedicalIncident = async (req, res) => {
       medicalIncident = new MedicationMedicalIncident({
         recordName,
         recordDescription,
-        incident: [{
-          incidentType,
-          date,
-          medi_name,
-          medi_dosage,
-          medi_Frequency
-
-        }],
+        incident: [
+          {
+            incidentType,
+            date,
+            medi_name,
+            medi_dosage,
+            medi_Frequency,
+          },
+        ],
       });
     }
 
@@ -45,12 +43,6 @@ const createMedicationMedicalIncident = async (req, res) => {
       medi_name,
       medi_dosage,
       medi_Frequency,
-
-
-
-
-
-
     });
 
     // Save the updated document
@@ -66,7 +58,9 @@ const createMedicationMedicalIncident = async (req, res) => {
 const GetMedicationMedicalIncident = async (req, res) => {
   try {
     console.log("Fetching medications");
-    const Medications = await MedicationMedicalIncident.find({}).sort({ createdAt: -1 });
+    const Medications = await MedicationMedicalIncident.find({}).sort({
+      createdAt: -1,
+    });
     // .sort({
     //   createdAt: -1,
     // });
@@ -80,7 +74,5 @@ const GetMedicationMedicalIncident = async (req, res) => {
 
 module.exports = {
   createMedicationMedicalIncident,
-  GetMedicationMedicalIncident
+  GetMedicationMedicalIncident,
 };
-
-
