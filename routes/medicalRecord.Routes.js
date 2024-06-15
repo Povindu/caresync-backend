@@ -1,14 +1,17 @@
 const express = require("express");
 const {
-  createMedicalRecord,
-  getAllMedicalRecords,
+  createRecord,
+  getAllRecordsOfPatient,
+  getRecord
 } = require("../controllers/medicalRecord.Controller.js");
 
 const router = express.Router();
 
 
 //post a new result
-router.post("/create/", createMedicalRecord);
-router.get("/getAll/", getAllMedicalRecords);
+router.post("/create/", createRecord);
+router.get("/getRecordsPatient/", getAllRecordsOfPatient);
+router.get("/getRecord/", getRecord);
+
 
 module.exports = router;

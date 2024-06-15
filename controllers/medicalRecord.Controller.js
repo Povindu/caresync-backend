@@ -2,7 +2,7 @@ const MedicalRecord = require("../models/medicalRecord");
 const Patient = require("../models/Patient");
 const mongoose = require("mongoose");
 
-const createMedicalRecord = async (req, res) => {
+const createRecord = async (req, res) => {
   try {
     const { recordName, recordDescription, date, patientID } = req.body;
 
@@ -53,7 +53,7 @@ const createMedicalRecord = async (req, res) => {
   }
 };
 
-const getAllMedicalRecords = async (req, res) => {
+const getAllRecordsOfPatient = async (req, res) => {
   try {
     const { patientID } = req.body;
 
@@ -85,7 +85,66 @@ const getAllMedicalRecords = async (req, res) => {
   }
 };
 
+const getRecord = async (req, res) => {
+  try {
+    const { recordID } = req.body;
+
+    // Validation
+    if (!recordID) {
+      return res.status(400).json({ error: "RecordID is required" });
+    }
+    if (!mongoose.Types.ObjectId.isValid(recordID)) {
+      return res.status(400).json({ error: "Invalid RecordID" });
+    }
+
+    console.log("Fetching Record");
+
+    const currentRecord = await MedicalRecord.findOne({
+      _id: recordID,
+    })
+      .populate([
+        {
+          path: "incidents",
+          populate: {
+            path: "testIncidents",
+            model: "TestIncident",
+          },
+        },
+      ])
+      .populate([
+        {
+          path: "incidents",
+          populate: {
+            path: "appointmentIncidents",
+            model: "AppointmentIncident",
+          },
+        },
+      ])
+      .populate([
+        {
+          path: "incidents",
+          populate: {
+            path: "prescriptionIncidents",
+            model: "PrescriptionIncident",
+          },
+        },
+      ]);
+    // .select("medicalRecords");
+
+    if (!currentRecord) {
+      return res.status(400).json({ error: "No records found" });
+    }
+
+    console.log("Records fetched:", currentRecord);
+    res.status(200).json({ currentRecord });
+  } catch (error) {
+    console.error("Error fetching tests:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 module.exports = {
-  createMedicalRecord,
-  getAllMedicalRecords,
+  createRecord,
+  getAllRecordsOfPatient,
+  getRecord,
 };
