@@ -9,7 +9,8 @@ const authRoutes = require("./authRoutes");
 const BreathingTestRoutes = require("./breathingTestRoutes");
 const StepCounterTestRoutes = require("./stepCountTestRoutes");
 const PatientHistoryRoutes = require("./patientHistoryRoutes");
-const MedicalIncidentRoutes = require("./MedicalIncidentRoutes");
+const MedicalIncidentRoutes = require("./medicalIncidentRoutes");
+const MedicalRecordRoutes = require("./medicalRecord.Routes");
 
 const ExtTestRoutes = require("./ExternalTestResult.Routes");
 
@@ -22,6 +23,7 @@ router.use("/stepCounterTests", AuthMiddleware, StepCounterTestRoutes);
 router.use("/patientsHistory", AuthMiddleware, PatientHistoryRoutes);
 router.use("/patients", AuthMiddleware, PatientRoutes);
 router.use("/medicalIncident", AuthMiddleware, MedicalIncidentRoutes);
+router.use("/medicalRecord", AuthMiddleware, MedicalRecordRoutes);
 
 router.use("/extTests", AuthMiddleware, ExtTestRoutes);
 router.use("/medication", AuthMiddleware, MedicationNewRoutes);

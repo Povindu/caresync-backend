@@ -1,4 +1,4 @@
-const AppointmentMedicalIncident = require("../../models/medicalIncidentTestModel");
+const AppointmentMedicalIncident = require("../../models/MedicalIncidentModels/Appointment-IncidentModel");
 const mongoose = require("mongoose");
 
 const createAppointmentMedicalIncident = async (req, res) => {
