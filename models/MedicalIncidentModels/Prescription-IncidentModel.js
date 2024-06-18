@@ -9,7 +9,7 @@ const PrescriptionIncidentSchema = new Schema(
       required: true,
     },
     doctorID: {
-      type: Schema.Types.ObjectId || String,
+      type: Schema.Types.ObjectId,
       ref: "Doctor",
     },
     doctorName: {

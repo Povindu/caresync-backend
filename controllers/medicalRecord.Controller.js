@@ -4,12 +4,12 @@ const mongoose = require("mongoose");
 
 const createRecord = async (req, res) => {
   try {
-    const { recordName, recordDescription, date, patientID } = req.body;
+    const { recordName, recordDescription, patientID } = req.body;
 
     // *Validation
 
     // Check if all fields are provided
-    if (!recordName || !recordDescription || !date || !patientID) {
+    if (!recordName || !recordDescription || !patientID) {
       return res.status(400).json({ error: "All fields are required" });
     }
     // Check if the patientID is a valid ObjectId
@@ -31,7 +31,6 @@ const createRecord = async (req, res) => {
       recordName: recordName,
       description: recordDescription,
       patientID: patientID,
-      recordDate: date,
     });
 
     // Save the updated document
@@ -71,6 +70,54 @@ const getAllRecordsOfPatient = async (req, res) => {
       .populate({
         path: "medicalRecords",
       })
+      .populate([
+        {
+          path: "medicalRecords",
+          populate: {
+            path: "incidents",
+            populate: {
+              path: "appointmentIncidents",
+              model: "AppointmentIncident",
+            },
+          },
+        },
+      ])
+      .populate([
+        {
+          path: "medicalRecords",
+          populate: {
+            path: "incidents",
+            populate: {
+              path: "testIncidents",
+              model: "TestIncident",
+            },
+          },
+        },
+      ])
+      .populate([
+        {
+          path: "medicalRecords",
+          populate: {
+            path: "incidents",
+            populate: {
+              path: "prescriptionIncidents",
+              model: "PrescriptionIncident",
+            },
+          },
+        },
+      ])
+      .populate([
+        {
+          path: "medicalRecords",
+          populate: {
+            path: "incidents",
+            populate: {
+              path: "symptomIncidents",
+              model: "SymptomIncident",
+            },
+          },
+        },
+      ])
       .select("medicalRecords");
 
     if (!patientRecords) {

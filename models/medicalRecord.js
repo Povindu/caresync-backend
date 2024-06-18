@@ -53,10 +53,6 @@ const MedicalRecordSchema = new Schema(
       ref: "Patient",
       required: true,
     },
-    recordDate: {
-      type: Date,
-      required: true,
-    },
   },
   { timestamps: true }
 );
