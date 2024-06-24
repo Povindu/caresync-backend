@@ -52,6 +52,7 @@ router.post("/getOTP", getOTP);
 
 // OTP Verification patient Register
 router.post("/verifyOtpPatient", verifyOtpPatient);
+
 // Endpoint to check if an email exists patients
 router.get("/:email", checkEmailExists);
 

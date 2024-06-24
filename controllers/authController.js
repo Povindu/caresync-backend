@@ -174,8 +174,10 @@ const doctorSignIn = async (req, res) => {
 };
 
 const refreshAT = async (req, res) => {
+
   const { refreshToken } = req.body;
   console.log(refreshToken);
+
   if (!refreshToken) {
     return res.status(400).send({ error: "Must provide refresh token" });
   }
@@ -183,7 +185,7 @@ const refreshAT = async (req, res) => {
   refreshAccessToken(refreshToken)
     .then((result) => {
       if (result) {
-        res.status(200).send(result);
+        res.status(200).send({ token : result.accessToken});
       } else {
         throw error;
       }
