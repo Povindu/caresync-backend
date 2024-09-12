@@ -14,4 +14,4 @@ Project CareSync is a comprehensive healthcare system designed to modernize and 
 
 Installation:
 
-To install and set up CareSync Web Portal locally, follow these steps: Ensure you have Node.js installed on your system. Clone the CareSync repository from GitHub. Navigate to the project directory in your terminal. Run npm install to install project dependencies. Set up environment variables in a .env file, including the database connection string. Start the server by running npm start.
+To install and set up CareSync Backend locally, follow these steps: Ensure you have Node.js installed on your system. Clone the CareSync repository from GitHub. Navigate to the project directory in your terminal. Run npm install to install project dependencies. Set up environment variables in a .env file, including the database connection string. Start the server by running npm start.
