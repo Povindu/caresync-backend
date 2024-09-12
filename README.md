@@ -1,8 +1,8 @@
-### Caresync Backend
+# Caresync Backend
 
 CareSync Backend - A REST API Backend for the CareSync medical platform focusing on respiratory diseases
 
-# Technologies : NodeJS, ExpressJS, JWT
+### Technologies : NodeJS, ExpressJS, JWT
 
 Background:
 
